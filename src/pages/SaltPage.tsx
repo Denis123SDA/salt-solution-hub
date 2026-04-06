@@ -107,15 +107,11 @@ const SaltPage = () => {
             <div className="relative">
               <img
                 src={saltHero}
-                alt="Таблетированная соль на складе в Барнауле"
+                alt="Таблетированная соль Мозырьсоль и Руссоль"
                 width={1920}
                 height={1080}
-                className="rounded-lg shadow-2xl object-cover w-full aspect-[4/3]"
+                className="rounded-2xl shadow-2xl object-cover w-full"
               />
-              <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground px-5 py-3 rounded-md shadow-lg">
-                <p className="text-2xl font-black">25 кг</p>
-                <p className="text-xs opacity-80">мешок</p>
-              </div>
             </div>
           </div>
         </div>
