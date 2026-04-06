@@ -86,11 +86,16 @@ const SaltPage = () => {
       {/* ===== HERO ===== */}
       <section className="py-16 md:py-24 lg:py-28 relative overflow-hidden">
         <SaltTablets tablets={[
-          { size: 48, top: '10%', left: '2%', className: 'salt-float-1', opacity: 0.3 },
-          { size: 28, top: '25%', right: '5%', className: 'salt-float-2', opacity: 0.2 },
-          { size: 64, bottom: '15%', left: '8%', className: 'salt-float-3', opacity: 0.15 },
-          { size: 36, bottom: '30%', right: '3%', className: 'salt-float-4', opacity: 0.25 },
-          { size: 20, top: '60%', left: '45%', className: 'salt-float-5', opacity: 0.2 },
+          { size: 48, top: '8%', left: '2%', className: 'salt-float-1', opacity: 0.35 },
+          { size: 28, top: '20%', right: '5%', className: 'salt-float-2', opacity: 0.3 },
+          { size: 72, bottom: '12%', left: '6%', className: 'salt-float-3', opacity: 0.2 },
+          { size: 36, bottom: '28%', right: '2%', className: 'salt-float-4', opacity: 0.3 },
+          { size: 22, top: '55%', left: '42%', className: 'salt-float-5', opacity: 0.25 },
+          { size: 18, top: '15%', left: '35%', className: 'salt-float-2', opacity: 0.28 },
+          { size: 54, top: '70%', right: '8%', className: 'salt-float-3', opacity: 0.18 },
+          { size: 14, top: '40%', left: '15%', className: 'salt-float-1', opacity: 0.35 },
+          { size: 40, bottom: '5%', right: '15%', className: 'salt-float-5', opacity: 0.22 },
+          { size: 16, top: '5%', right: '20%', className: 'salt-float-4', opacity: 0.3 },
         ]} />
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -148,8 +153,14 @@ const SaltPage = () => {
       </section>
 
       {/* ===== TRUST STRIP ===== */}
-      <section className="py-10 md:py-14">
-        <div className="container mx-auto">
+      <section className="py-10 md:py-14 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 24, top: '10%', left: '5%', className: 'salt-float-1', opacity: 0.25 },
+          { size: 18, top: '20%', right: '8%', className: 'salt-float-3', opacity: 0.3 },
+          { size: 32, bottom: '15%', left: '50%', className: 'salt-float-5', opacity: 0.2 },
+          { size: 14, bottom: '25%', right: '15%', className: 'salt-float-2', opacity: 0.28 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { value: "25 кг", label: "фасовка мешков", icon: Package },
@@ -172,10 +183,14 @@ const SaltPage = () => {
       {/* ===== PRODUCTS ===== */}
       <section id="products" className="py-20 md:py-28 relative overflow-hidden">
         <SaltTablets tablets={[
-          { size: 56, top: '5%', right: '4%', className: 'salt-float-2', opacity: 0.2 },
-          { size: 32, top: '40%', left: '3%', className: 'salt-float-4', opacity: 0.25 },
-          { size: 44, bottom: '10%', right: '6%', className: 'salt-float-1', opacity: 0.18 },
-          { size: 24, bottom: '25%', left: '6%', className: 'salt-float-3', opacity: 0.22 },
+          { size: 60, top: '4%', right: '3%', className: 'salt-float-2', opacity: 0.25 },
+          { size: 32, top: '35%', left: '2%', className: 'salt-float-4', opacity: 0.3 },
+          { size: 48, bottom: '8%', right: '5%', className: 'salt-float-1', opacity: 0.22 },
+          { size: 24, bottom: '20%', left: '5%', className: 'salt-float-3', opacity: 0.28 },
+          { size: 20, top: '15%', left: '45%', className: 'salt-float-5', opacity: 0.25 },
+          { size: 38, top: '60%', right: '12%', className: 'salt-float-2', opacity: 0.2 },
+          { size: 16, top: '75%', left: '10%', className: 'salt-float-4', opacity: 0.32 },
+          { size: 44, bottom: '35%', right: '20%', className: 'salt-float-1', opacity: 0.18 },
         ]} />
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -235,8 +250,15 @@ const SaltPage = () => {
       </section>
 
       {/* ===== APPLICATIONS ===== */}
-      <section id="applications" className="bg-section-alt py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4">
-        <div className="container mx-auto">
+      <section id="applications" className="bg-section-alt py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 34, top: '8%', left: '4%', className: 'salt-float-2', opacity: 0.18 },
+          { size: 50, bottom: '10%', right: '5%', className: 'salt-float-4', opacity: 0.15 },
+          { size: 22, top: '50%', right: '3%', className: 'salt-float-1', opacity: 0.22 },
+          { size: 28, bottom: '30%', left: '8%', className: 'salt-float-5', opacity: 0.2 },
+          { size: 16, top: '20%', right: '15%', className: 'salt-float-3', opacity: 0.25 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Сферы применения</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Где используется таблетированная соль</h2>
@@ -264,9 +286,13 @@ const SaltPage = () => {
       {/* ===== ADVANTAGES ===== */}
       <section id="advantages" className="py-20 md:py-28 relative overflow-hidden">
         <SaltTablets tablets={[
-          { size: 40, top: '8%', left: '5%', className: 'salt-float-3', opacity: 0.2 },
-          { size: 52, bottom: '12%', right: '3%', className: 'salt-float-1', opacity: 0.15 },
-          { size: 28, top: '50%', right: '7%', className: 'salt-float-5', opacity: 0.25 },
+          { size: 44, top: '6%', left: '4%', className: 'salt-float-3', opacity: 0.25 },
+          { size: 56, bottom: '10%', right: '2%', className: 'salt-float-1', opacity: 0.2 },
+          { size: 30, top: '45%', right: '6%', className: 'salt-float-5', opacity: 0.3 },
+          { size: 20, top: '20%', left: '40%', className: 'salt-float-2', opacity: 0.25 },
+          { size: 36, bottom: '30%', left: '3%', className: 'salt-float-4', opacity: 0.22 },
+          { size: 18, top: '70%', right: '15%', className: 'salt-float-1', opacity: 0.28 },
+          { size: 26, top: '12%', right: '25%', className: 'salt-float-3', opacity: 0.2 },
         ]} />
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -341,9 +367,12 @@ const SaltPage = () => {
       {/* ===== HOW TO ORDER ===== */}
       <section id="order" className="py-20 md:py-28 relative overflow-hidden">
         <SaltTablets tablets={[
-          { size: 36, top: '15%', right: '5%', className: 'salt-float-2', opacity: 0.22 },
-          { size: 50, bottom: '20%', left: '4%', className: 'salt-float-4', opacity: 0.18 },
-          { size: 22, top: '45%', left: '8%', className: 'salt-float-1', opacity: 0.28 },
+          { size: 38, top: '12%', right: '4%', className: 'salt-float-2', opacity: 0.28 },
+          { size: 54, bottom: '18%', left: '3%', className: 'salt-float-4', opacity: 0.22 },
+          { size: 24, top: '40%', left: '7%', className: 'salt-float-1', opacity: 0.32 },
+          { size: 42, top: '8%', left: '30%', className: 'salt-float-5', opacity: 0.18 },
+          { size: 18, bottom: '35%', right: '10%', className: 'salt-float-3', opacity: 0.3 },
+          { size: 30, bottom: '8%', right: '25%', className: 'salt-float-2', opacity: 0.2 },
         ]} />
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -438,8 +467,11 @@ const SaltPage = () => {
       {/* ===== CONTACTS ===== */}
       <section id="contacts" className="py-20 md:py-28 relative overflow-hidden">
         <SaltTablets tablets={[
-          { size: 42, top: '10%', left: '3%', className: 'salt-float-5', opacity: 0.2 },
-          { size: 30, bottom: '15%', right: '4%', className: 'salt-float-2', opacity: 0.25 },
+          { size: 46, top: '8%', left: '2%', className: 'salt-float-5', opacity: 0.25 },
+          { size: 34, bottom: '12%', right: '3%', className: 'salt-float-2', opacity: 0.3 },
+          { size: 20, top: '50%', left: '45%', className: 'salt-float-1', opacity: 0.22 },
+          { size: 28, top: '25%', right: '10%', className: 'salt-float-4', opacity: 0.28 },
+          { size: 16, bottom: '30%', left: '12%', className: 'salt-float-3', opacity: 0.3 },
         ]} />
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
