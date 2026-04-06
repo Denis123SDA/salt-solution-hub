@@ -65,7 +65,7 @@ const SaltPage = () => {
       </header>
 
       {/* ===== HERO ===== */}
-      <section className="bg-section-dark py-16 md:py-24 lg:py-28">
+      <section className="py-16 md:py-24 lg:py-28">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="space-y-7">
