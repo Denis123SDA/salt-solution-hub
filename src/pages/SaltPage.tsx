@@ -204,7 +204,7 @@ const SaltPage = () => {
       </section>
 
       {/* ===== APPLICATIONS ===== */}
-      <section id="applications" className="bg-section-alt py-20 md:py-28">
+      <section id="applications" className="bg-section-alt py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Сферы применения</p>
