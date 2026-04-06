@@ -104,17 +104,30 @@ const SaltPage = () => {
                 Работаем с физическими и юридическими лицами
               </p>
             </div>
-            <div className="relative">
-              <img
-                src={saltHero}
-                alt="Таблетированная соль на складе в Барнауле"
-                width={1920}
-                height={1080}
-                className="rounded-lg shadow-2xl object-cover w-full aspect-[4/3]"
-              />
-              <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground px-5 py-3 rounded-md shadow-lg">
-                <p className="text-2xl font-black">25 кг</p>
-                <p className="text-xs opacity-80">мешок</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative bg-card rounded-lg shadow-xl overflow-hidden">
+                <img
+                  src={saltMozyr}
+                  alt="Соль Мозырьсоль 25 кг"
+                  width={600}
+                  height={800}
+                  className="w-full h-full object-contain p-4"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-primary text-primary-foreground px-4 py-2 text-center">
+                  <p className="text-sm font-bold">Мозырьсоль</p>
+                </div>
+              </div>
+              <div className="relative bg-card rounded-lg shadow-xl overflow-hidden">
+                <img
+                  src={saltRussol}
+                  alt="Соль Руссоль 25 кг"
+                  width={600}
+                  height={800}
+                  className="w-full h-full object-contain p-4"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-primary text-primary-foreground px-4 py-2 text-center">
+                  <p className="text-sm font-bold">Руссоль</p>
+                </div>
               </div>
             </div>
           </div>
