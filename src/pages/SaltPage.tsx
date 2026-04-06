@@ -10,6 +10,24 @@ import {
   ShieldCheck, Clock, Award, Menu, X,
 } from "lucide-react";
 
+/* Reusable decorative salt tablets */
+const SaltTablets = ({ tablets }: { tablets: { size: number; top?: string; bottom?: string; left?: string; right?: string; className: string; opacity?: number }[] }) => (
+  <>
+    {tablets.map((t, i) => (
+      <div
+        key={i}
+        className={`salt-tablet ${t.className}`}
+        style={{
+          width: t.size, height: t.size * 0.45,
+          top: t.top, bottom: t.bottom, left: t.left, right: t.right,
+          opacity: t.opacity ?? 0.5,
+          borderRadius: '50%',
+        }}
+      />
+    ))}
+  </>
+);
+
 const SaltPage = () => {
   const [form, setForm] = useState({ name: "", phone: "", volume: "", comment: "" });
   const [menuOpen, setMenuOpen] = useState(false);
