@@ -3,14 +3,15 @@ import saltHero from "@/assets/salt-hero.jpg";
 import saltMozyr from "@/assets/salt-mozyr.jpg";
 import saltRussol from "@/assets/salt-russol.jpg";
 import {
-  Droplets, Flame, Factory, Waves, Car, Home, Building2,
+  Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
   CheckCircle2, Phone, MessageCircle, Send, ChevronRight,
-  ShieldCheck, Clock, Award,
+  ShieldCheck, Clock, Award, Menu, X,
 } from "lucide-react";
 
 const SaltPage = () => {
   const [form, setForm] = useState({ name: "", phone: "", volume: "", comment: "" });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,10 +19,18 @@ const SaltPage = () => {
     window.open(`https://wa.me/73852779823?text=${encodeURIComponent(msg)}`, "_blank");
   };
 
+  const navLinks = [
+    { href: "#products", label: "Продукция" },
+    { href: "#applications", label: "Применение" },
+    { href: "#advantages", label: "Преимущества" },
+    { href: "#order", label: "Как заказать" },
+    { href: "#contacts", label: "Контакты" },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* ===== HEADER ===== */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
         <div className="container mx-auto flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
@@ -30,46 +39,71 @@ const SaltPage = () => {
             <span className="text-lg font-bold text-foreground">Севуч Плюс</span>
           </div>
           <nav className="hidden md:flex gap-8 text-sm font-medium text-muted-foreground">
-            <a href="#products" className="hover:text-foreground transition-colors">Продукция</a>
-            <a href="#applications" className="hover:text-foreground transition-colors">Применение</a>
-            <a href="#advantages" className="hover:text-foreground transition-colors">Преимущества</a>
-            <a href="#order" className="hover:text-foreground transition-colors">Как заказать</a>
-            <a href="#contacts" className="hover:text-foreground transition-colors">Контакты</a>
+            {navLinks.map(l => (
+              <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>
+            ))}
           </nav>
-          <a href="tel:+73852779823" className="bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-semibold hover:opacity-90 transition-opacity">
+          <a href="tel:+73852779823" className="hidden md:inline-flex bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-primary/90 transition-colors">
             +7 (3852) 77-98-23
           </a>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-foreground">
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+        {menuOpen && (
+          <div className="md:hidden border-t border-border bg-background py-4">
+            <div className="container mx-auto flex flex-col gap-3">
+              {navLinks.map(l => (
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-sm font-medium text-foreground py-2">{l.label}</a>
+              ))}
+              <a href="tel:+73852779823" className="bg-primary text-primary-foreground px-5 py-3 rounded-md text-sm font-semibold text-center mt-2">
+                +7 (3852) 77-98-23
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* ===== HERO ===== */}
-      <section className="bg-section-dark py-20 md:py-28">
+      <section className="bg-section-dark py-16 md:py-24 lg:py-28">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="space-y-7">
               <div>
                 <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-4">Поставщик в Барнауле</p>
-                <h1 className="text-4xl md:text-[44px] lg:text-[48px] font-black leading-[1.15] text-section-dark-foreground">
+                <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black leading-[1.12] text-section-dark-foreground">
                   Таблетированная соль<br />
                   Мозырьсоль и Руссоль
                 </h1>
               </div>
               <p className="text-lg text-section-dark-foreground/70 leading-relaxed max-w-lg">
-                Для водоочистки, котельных, производств и частного использования.
-                Опт и розница. <span className="text-section-dark-foreground font-semibold">Всегда в наличии на складе.</span>
+                Для водоочистки, котельных, производств и частного использования
               </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="#form" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-base hover:opacity-90 transition-all shadow-lg shadow-primary/30">
+              <ul className="space-y-3">
+                {[
+                  "Всегда в наличии на складе",
+                  "Мешки 25 кг",
+                  "Опт и розница",
+                  "Самовывоз и доставка",
+                ].map(item => (
+                  <li key={item} className="flex items-center gap-3 text-section-dark-foreground/90">
+                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                    <span className="font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-4 pt-1">
+                <a href="#form" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25">
                   Получить цену
                 </a>
-                <a href="tel:+73852779823" className="border border-section-dark-foreground/30 text-section-dark-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-section-dark-foreground/10 transition-all">
+                <a href="tel:+73852779823" className="border border-section-dark-foreground/30 text-section-dark-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-section-dark-foreground/10 transition-colors">
                   Позвонить
                 </a>
               </div>
-              <div className="flex items-center gap-6 text-sm text-section-dark-foreground/60">
-                <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-primary" /> Физ. и юр. лица</span>
-                <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-primary" /> Доставка и самовывоз</span>
-              </div>
+              <p className="text-sm text-section-dark-foreground/50 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-primary" />
+                Работаем с физическими и юридическими лицами
+              </p>
             </div>
             <div className="relative">
               <img
@@ -89,7 +123,7 @@ const SaltPage = () => {
       </section>
 
       {/* ===== TRUST STRIP ===== */}
-      <section className="border-b py-6">
+      <section className="border-b border-border py-6">
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
@@ -108,96 +142,85 @@ const SaltPage = () => {
       </section>
 
       {/* ===== PRODUCTS ===== */}
-      <section id="products" className="py-20 md:py-24">
+      <section id="products" className="py-20 md:py-28">
         <div className="container mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Каталог</p>
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">Ассортимент продукции</h2>
+            <h2 className="text-3xl md:text-[36px] font-black text-foreground">Ассортимент продукции</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Mozyr */}
-            <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="aspect-[3/2] overflow-hidden bg-muted">
-                <img src={saltMozyr} alt="Соль Мозырьсоль" loading="lazy" width={800} height={533} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            {[
+              {
+                img: saltMozyr,
+                alt: "Соль Мозырьсоль",
+                name: "Мозырьсоль",
+                desc: "Высококачественная таблетированная соль для систем водоочистки и промышленного применения.",
+                features: [
+                  "Подходит для фильтров и умягчителей воды",
+                  "Используется в котельных и на производстве",
+                  "Стабильная регенерация оборудования",
+                  "Фасовка: мешки 25 кг",
+                ],
+              },
+              {
+                img: saltRussol,
+                alt: "Соль Руссоль",
+                name: "Руссоль",
+                desc: "Надёжный вариант для бытового и коммерческого использования. Оптимальное решение для систем очистки воды.",
+                features: [
+                  "Для частных домов и бизнеса",
+                  "Подходит для различных систем водоочистки",
+                  "Стабильное качество продукции",
+                  "Фасовка: мешки 25 кг",
+                ],
+              },
+            ].map(product => (
+              <div key={product.name} className="border border-border rounded-lg overflow-hidden hover:shadow-xl transition-shadow group flex flex-col">
+                <div className="aspect-[3/2] overflow-hidden bg-muted">
+                  <img src={product.img} alt={product.alt} loading="lazy" width={800} height={533} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-8 flex flex-col flex-1">
+                  <h3 className="text-2xl font-bold mb-3 text-foreground">{product.name}</h3>
+                  <p className="text-muted-foreground mb-5 leading-relaxed">{product.desc}</p>
+                  <ul className="space-y-2.5 mb-6 flex-1">
+                    {product.features.map(item => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a href="#form" className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-md font-semibold hover:bg-primary/90 transition-colors w-full md:w-auto">
+                    Узнать цену <ChevronRight className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Мозырьсоль</h3>
-                <p className="text-muted-foreground mb-5 leading-relaxed">
-                  Высококачественная таблетированная соль для систем водоочистки и промышленного применения.
-                </p>
-                <ul className="space-y-2.5 mb-6">
-                  {[
-                    "Подходит для фильтров и умягчителей воды",
-                    "Используется в котельных и на производстве",
-                    "Стабильная регенерация оборудования",
-                    "Фасовка: мешки 25 кг",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a href="#form" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-all">
-                  Узнать цену <ChevronRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-            {/* Russol */}
-            <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="aspect-[3/2] overflow-hidden bg-muted">
-                <img src={saltRussol} alt="Соль Руссоль" loading="lazy" width={800} height={533} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Руссоль</h3>
-                <p className="text-muted-foreground mb-5 leading-relaxed">
-                  Надёжный вариант для бытового и коммерческого использования. Оптимальное решение для систем очистки воды.
-                </p>
-                <ul className="space-y-2.5 mb-6">
-                  {[
-                    "Для частных домов и бизнеса",
-                    "Подходит для различных систем водоочистки",
-                    "Стабильное качество продукции",
-                    "Фасовка: мешки 25 кг",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a href="#form" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-all">
-                  Узнать цену <ChevronRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ===== APPLICATIONS ===== */}
-      <section id="applications" className="bg-section-alt py-20 md:py-24">
+      <section id="applications" className="bg-section-alt py-20 md:py-28">
         <div className="container mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Сферы применения</p>
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">Где используется таблетированная соль</h2>
+            <h2 className="text-3xl md:text-[36px] font-black text-foreground">Где используется таблетированная соль</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
             {[
-              { icon: Droplets, label: "Водоочистка и умягчение воды" },
-              { icon: Flame, label: "Котельные и теплоузлы" },
-              { icon: Factory, label: "Промышленные предприятия" },
-              { icon: Waves, label: "Бассейны и СПА" },
-              { icon: Car, label: "Автомойки" },
+              { icon: Droplets, label: "Водоочистка" },
+              { icon: Flame, label: "Котельные" },
+              { icon: Factory, label: "Производство" },
+              { icon: Waves, label: "Бассейны" },
+              { icon: Building2, label: "ЖКХ" },
               { icon: Home, label: "Частные дома" },
-              { icon: Building2, label: "ЖКХ и управляющие компании" },
-              { icon: Award, label: "Пищевое производство" },
             ].map(({ icon: Icon, label }) => (
-              <div key={label} className="bg-card border rounded-lg p-6 text-center hover:shadow-md hover:border-primary/30 transition-all">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-6 h-6 text-primary" />
+              <div key={label} className="bg-card border border-border rounded-lg p-6 text-center hover:shadow-md hover:border-primary/40 transition-all">
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Icon className="w-7 h-7 text-primary" />
                 </div>
-                <span className="text-sm font-semibold text-foreground leading-snug block">{label}</span>
+                <span className="text-sm font-semibold text-foreground">{label}</span>
               </div>
             ))}
           </div>
@@ -205,13 +228,13 @@ const SaltPage = () => {
       </section>
 
       {/* ===== ADVANTAGES ===== */}
-      <section id="advantages" className="py-20 md:py-24">
+      <section id="advantages" className="py-20 md:py-28">
         <div className="container mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Преимущества</p>
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">Почему выбирают нас</h2>
+            <h2 className="text-3xl md:text-[36px] font-black text-foreground">Почему выбирают нас</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Package, title: "Всегда в наличии", text: "Стабильные запасы на складе в Барнауле" },
               { icon: Clock, title: "Быстрая отгрузка", text: "Отгрузка в день обращения при наличии" },
@@ -220,13 +243,13 @@ const SaltPage = () => {
               { icon: Users, title: "Опт и розница", text: "Работаем с любыми объёмами заказов" },
               { icon: Headphones, title: "Подбор под задачу", text: "Подскажем оптимальный вариант" },
               { icon: ShieldCheck, title: "Проверенные бренды", text: "Мозырьсоль и Руссоль — лидеры рынка" },
-              { icon: Users, title: "Гибкие условия", text: "Индивидуальный подход для постоянных клиентов" },
+              { icon: Award, title: "Гибкие условия", text: "Индивидуальный подход для постоянных клиентов" },
             ].map(({ icon: Icon, title, text }, i) => (
-              <div key={i} className="border rounded-lg p-6 hover:shadow-md hover:border-primary/30 transition-all">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon className="w-5 h-5 text-primary" />
+              <div key={i} className="border border-border rounded-lg p-6 hover:shadow-lg hover:border-primary/30 transition-all">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-bold text-foreground mb-1.5">{title}</h3>
+                <h3 className="font-bold text-foreground mb-1.5 text-base">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
               </div>
             ))}
@@ -235,13 +258,13 @@ const SaltPage = () => {
       </section>
 
       {/* ===== TRUST / ABOUT ===== */}
-      <section className="bg-section-alt py-20 md:py-24">
+      <section className="bg-section-alt py-20 md:py-28 border-t border-border">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">О компании</p>
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">Надёжный поставщик таблетированной соли в Барнауле</h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-6 leading-tight">Надёжный поставщик таблетированной соли в&nbsp;Барнауле</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed text-base">
                 <p>
                   Компания «Севуч Плюс» — поставщик таблетированной соли для предприятий, котельных, систем водоочистки
                   и частных клиентов в Барнауле и Алтайском крае.
@@ -256,69 +279,45 @@ const SaltPage = () => {
                 </p>
               </div>
               <div className="mt-8 grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-card border rounded-lg">
-                  <p className="text-2xl font-black text-primary">2</p>
-                  <p className="text-xs text-muted-foreground mt-1">бренда в наличии</p>
-                </div>
-                <div className="text-center p-4 bg-card border rounded-lg">
-                  <p className="text-2xl font-black text-primary">25 кг</p>
-                  <p className="text-xs text-muted-foreground mt-1">фасовка мешков</p>
-                </div>
-                <div className="text-center p-4 bg-card border rounded-lg">
-                  <p className="text-2xl font-black text-primary">∞</p>
-                  <p className="text-xs text-muted-foreground mt-1">запас на складе</p>
-                </div>
+                {[
+                  { val: "2", sub: "бренда в наличии" },
+                  { val: "25 кг", sub: "фасовка мешков" },
+                  { val: "∞", sub: "запас на складе" },
+                ].map(s => (
+                  <div key={s.sub} className="text-center p-4 bg-card border border-border rounded-lg">
+                    <p className="text-2xl font-black text-primary">{s.val}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{s.sub}</p>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="space-y-4">
-              <img src={saltHero} alt="Склад таблетированной соли" loading="lazy" className="rounded-lg w-full aspect-[4/3] object-cover" />
+              <img src={saltHero} alt="Склад таблетированной соли" loading="lazy" className="rounded-lg w-full aspect-[4/3] object-cover shadow-lg" />
               <p className="text-sm text-muted-foreground text-center">Наш склад в Барнауле — продукция всегда в наличии</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PRICING CTA ===== */}
-      <section className="bg-section-dark py-20 md:py-24">
-        <div className="container mx-auto text-center max-w-3xl">
-          <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Цены</p>
-          <h2 className="text-3xl md:text-4xl font-black mb-6 text-section-dark-foreground">Условия и стоимость</h2>
-          <div className="space-y-3 text-lg text-section-dark-foreground/70 mb-10">
-            <p>Стоимость зависит от объёма заказа и условий поставки.</p>
-            <p>Для постоянных клиентов действуют скидки и специальные условия.</p>
-            <p className="text-section-dark-foreground font-semibold">Оставьте заявку — рассчитаем цену под ваш объём.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#form" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/30">
-              Оставить заявку
-            </a>
-            <a href="tel:+73852779823" className="border border-section-dark-foreground/30 text-section-dark-foreground px-8 py-4 rounded-md font-bold hover:bg-section-dark-foreground/10 transition-all">
-              Позвонить
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* ===== HOW TO ORDER ===== */}
-      <section id="order" className="py-20 md:py-24">
+      <section id="order" className="py-20 md:py-28">
         <div className="container mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Процесс</p>
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">Как заказать</h2>
+            <h2 className="text-3xl md:text-[36px] font-black text-foreground">Как заказать</h2>
           </div>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { step: "01", title: "Заявка или звонок", text: "Оставьте заявку на сайте или позвоните нам" },
               { step: "02", title: "Уточнение объёма", text: "Обсуждаем вашу задачу и нужный объём" },
               { step: "03", title: "Расчёт стоимости", text: "Подбираем вариант и рассчитываем цену" },
               { step: "04", title: "Отгрузка", text: "Забираете самовывозом или организуем доставку" },
             ].map(({ step, title, text }) => (
-              <div key={step} className="relative border rounded-lg p-8 text-center group hover:border-primary/30 hover:shadow-md transition-all">
-                <span className="text-5xl font-black text-primary/15 absolute top-4 right-4">{step}</span>
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-5">
+              <div key={step} className="border border-border rounded-lg p-8 text-center hover:border-primary/30 hover:shadow-md transition-all">
+                <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-5">
                   <span className="text-lg font-black">{step}</span>
                 </div>
-                <h3 className="font-bold text-foreground mb-2">{title}</h3>
+                <h3 className="font-bold text-foreground mb-2 text-base">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
               </div>
             ))}
@@ -327,13 +326,13 @@ const SaltPage = () => {
       </section>
 
       {/* ===== FORM ===== */}
-      <section id="form" className="bg-section-dark py-20 md:py-24">
+      <section id="form" className="bg-section-dark py-20 md:py-28">
         <div className="container mx-auto">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Бесплатная консультация</p>
-              <h2 className="text-3xl md:text-4xl font-black text-section-dark-foreground mb-3">Оставить заявку</h2>
-              <p className="text-section-dark-foreground/60">Ответим в ближайшее время и рассчитаем стоимость</p>
+              <h2 className="text-3xl md:text-[36px] font-black text-section-dark-foreground mb-4">Оставить заявку</h2>
+              <p className="text-lg text-section-dark-foreground/70">Оставьте заявку — рассчитаем стоимость под ваш объём</p>
             </div>
             <form onSubmit={handleSubmit} className="bg-card rounded-lg p-8 md:p-10 shadow-2xl space-y-5">
               <div className="grid md:grid-cols-2 gap-5">
@@ -345,7 +344,7 @@ const SaltPage = () => {
                     placeholder="Ваше имя"
                     value={form.name}
                     onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
                 <div>
@@ -356,7 +355,7 @@ const SaltPage = () => {
                     placeholder="+7 (___) ___-__-__"
                     value={form.phone}
                     onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
               </div>
@@ -367,7 +366,7 @@ const SaltPage = () => {
                   placeholder="Например: 10 мешков, 1 тонна"
                   value={form.volume}
                   onChange={e => setForm(p => ({ ...p, volume: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <div>
@@ -377,12 +376,12 @@ const SaltPage = () => {
                   value={form.comment}
                   onChange={e => setForm(p => ({ ...p, comment: e.target.value }))}
                   rows={3}
-                  className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/30"
+                className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
               >
                 <Send className="w-5 h-5" /> Отправить заявку
               </button>
@@ -393,35 +392,35 @@ const SaltPage = () => {
       </section>
 
       {/* ===== CONTACTS ===== */}
-      <section id="contacts" className="py-20 md:py-24">
+      <section id="contacts" className="py-20 md:py-28">
         <div className="container mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Связаться</p>
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">Контакты</h2>
+            <h2 className="text-3xl md:text-[36px] font-black text-foreground">Контакты</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-10">
-            <div className="space-y-8">
-              <div className="flex items-start gap-4 p-5 border rounded-lg">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-primary" />
+            <div className="space-y-6">
+              <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Phone className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Телефон для заказов</p>
                   <a href="tel:+73852779823" className="text-xl font-bold text-foreground hover:text-primary transition-colors">+7 (3852) 77-98-23</a>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-5 border rounded-lg">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-5 h-5 text-primary" />
+              <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <MessageCircle className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">WhatsApp</p>
                   <a href="https://wa.me/73852779823" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-foreground hover:text-primary transition-colors">Написать в WhatsApp</a>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-5 border rounded-lg">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-primary" />
+              <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Адрес офиса и склада</p>
@@ -429,7 +428,7 @@ const SaltPage = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg overflow-hidden border h-80 md:h-auto">
+            <div className="rounded-lg overflow-hidden border border-border h-80 md:h-auto">
               <iframe
                 src="https://yandex.ru/map-widget/v1/?ll=83.764884%2C53.346785&z=16&pt=83.764884%2C53.346785%2Cpm2rdm"
                 width="100%"
@@ -444,7 +443,7 @@ const SaltPage = () => {
       </section>
 
       {/* ===== SEO TEXT ===== */}
-      <section className="bg-section-alt py-16 border-t">
+      <section className="bg-section-alt py-16 border-t border-border">
         <div className="container mx-auto max-w-4xl">
           <div className="prose prose-sm text-muted-foreground max-w-none space-y-4 leading-relaxed">
             <p>
