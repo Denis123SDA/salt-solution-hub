@@ -179,7 +179,7 @@ const SaltPage = () => {
               },
             ].map(product => (
               <div key={product.name} className="border border-border rounded-lg overflow-hidden hover:shadow-xl transition-shadow group flex flex-col">
-                <div className="aspect-square overflow-hidden bg-muted/50 flex items-center justify-center p-8">
+                <div className="aspect-square overflow-hidden bg-card flex items-center justify-center p-8">
                   <img src={product.img} alt={product.alt} loading="lazy" width={800} height={800} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
