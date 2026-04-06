@@ -3,6 +3,7 @@ import saltHero from "@/assets/salt-hero-generated.png";
 import warehouseImg from "@/assets/warehouse.png";
 import saltMozyr from "@/assets/salt-mozyr.jpg";
 import saltRussol from "@/assets/salt-russol.jpg";
+import logoImg from "@/assets/logo.png";
 import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
@@ -50,11 +51,18 @@ const SaltPage = () => {
     <div className="min-h-screen bg-background">
       {/* ===== HEADER ===== */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="container mx-auto flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-black text-sm">С+</span>
+        <div className="hidden md:block bg-foreground/5 border-b border-border">
+          <div className="container mx-auto flex items-center justify-between py-1.5 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>г. Барнаул, ул. Ярных, 34, помещ. н3</span>
             </div>
+            <a href="tel:+73852779823" className="hover:text-primary transition-colors font-medium">+7 (3852) 77-98-23</a>
+          </div>
+        </div>
+        <div className="container mx-auto flex items-center justify-between h-16">
+          <div className="flex items-center gap-2.5">
+            <img src={logoImg} alt="Севуч Плюс" className="w-10 h-10 object-contain" />
             <span className="text-lg font-bold text-foreground">Севуч Плюс</span>
           </div>
           <nav className="hidden md:flex gap-8 text-sm font-medium text-muted-foreground">
@@ -546,10 +554,8 @@ const SaltPage = () => {
       <footer className="bg-section-dark py-10 border-t border-foreground/10">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-black text-xs">С+</span>
-              </div>
+            <div className="flex items-center gap-2.5">
+              <img src={logoImg} alt="Севуч Плюс" className="w-9 h-9 object-contain brightness-0 invert" />
               <span className="font-bold text-foreground">Севуч Плюс</span>
             </div>
             <p className="text-xs text-foreground/50 text-center max-w-lg">
