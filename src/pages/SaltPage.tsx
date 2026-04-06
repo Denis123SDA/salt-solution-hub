@@ -261,7 +261,7 @@ const SaltPage = () => {
       </section>
 
       {/* ===== TRUST / ABOUT ===== */}
-      <section className="bg-section-alt py-20 md:py-28 border-t border-border">
+      <section className="bg-section-alt py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
