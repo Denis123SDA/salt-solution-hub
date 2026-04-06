@@ -85,7 +85,14 @@ const SaltPage = () => {
 
       {/* ===== HERO ===== */}
       <section className="py-16 md:py-24 lg:py-28 relative overflow-hidden">
-        <div className="container mx-auto">
+        <SaltTablets tablets={[
+          { size: 48, top: '10%', left: '2%', className: 'salt-float-1', opacity: 0.3 },
+          { size: 28, top: '25%', right: '5%', className: 'salt-float-2', opacity: 0.2 },
+          { size: 64, bottom: '15%', left: '8%', className: 'salt-float-3', opacity: 0.15 },
+          { size: 36, bottom: '30%', right: '3%', className: 'salt-float-4', opacity: 0.25 },
+          { size: 20, top: '60%', left: '45%', className: 'salt-float-5', opacity: 0.2 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="space-y-7">
               <div>
