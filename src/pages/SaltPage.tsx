@@ -49,42 +49,43 @@ const SaltPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* ===== HEADER ===== */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="hidden md:block bg-foreground/5 border-b border-border">
-          <div className="container mx-auto flex items-center justify-between py-1.5 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>г. Барнаул, ул. Ярных, 34, помещ. н3</span>
-            </div>
-            <a href="tel:+73852779823" className="hover:text-primary transition-colors font-medium">+7 (3852) 77-98-23</a>
+      {/* ===== TOP BAR ===== */}
+      <div className="hidden md:block bg-foreground text-foreground/60 py-2">
+        <div className="container mx-auto flex items-center justify-between text-xs">
+          <div className="flex items-center gap-1.5 text-background/60">
+            <MapPin className="w-3.5 h-3.5" />
+            <span>г. Барнаул, ул. Ярных, 34, помещ. н3</span>
           </div>
+          <a href="tel:+73852779823" className="text-background/60 hover:text-primary transition-colors font-medium">+7 (3852) 77-98-23</a>
         </div>
-        <div className="container mx-auto flex items-center justify-between h-16">
+      </div>
+
+      {/* ===== HEADER ===== */}
+      <header className="sticky top-0 z-50 pt-3 px-4 md:px-8">
+        <div className="container mx-auto bg-muted/80 backdrop-blur-xl rounded-full border border-border/50 shadow-lg px-4 md:px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-2.5">
             <img src={logoImg} alt="Севуч Плюс" className="w-10 h-10 object-contain" />
-            <span className="text-lg font-bold text-foreground">Севуч Плюс</span>
           </div>
-          <nav className="hidden md:flex gap-8 text-sm font-medium text-muted-foreground">
+          <nav className="hidden md:flex gap-7 text-sm font-semibold text-foreground">
             {navLinks.map(l => (
-              <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>
+              <a key={l.href} href={l.href} className="hover:text-primary transition-colors py-1 border-b-2 border-transparent hover:border-primary">{l.label}</a>
             ))}
           </nav>
-          <a href="tel:+73852779823" className="hidden md:inline-flex bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-primary/90 transition-colors">
-            +7 (3852) 77-98-23
+          <a href="#form" className="hidden md:inline-flex bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-bold hover:bg-foreground/85 transition-colors">
+            Оставить заявку
           </a>
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-foreground">
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
         {menuOpen && (
-          <div className="md:hidden border-t border-border bg-background py-4">
-            <div className="container mx-auto flex flex-col gap-3">
+          <div className="md:hidden mt-2 mx-auto container bg-muted/95 backdrop-blur-xl rounded-2xl border border-border/50 shadow-lg py-4 px-6">
+            <div className="flex flex-col gap-3">
               {navLinks.map(l => (
-                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-sm font-medium text-foreground py-2">{l.label}</a>
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-sm font-semibold text-foreground py-2">{l.label}</a>
               ))}
-              <a href="tel:+73852779823" className="bg-primary text-primary-foreground px-5 py-3 rounded-md text-sm font-semibold text-center mt-2">
-                +7 (3852) 77-98-23
+              <a href="#form" className="bg-foreground text-background px-5 py-3 rounded-full text-sm font-bold text-center mt-2">
+                Оставить заявку
               </a>
             </div>
           </div>
