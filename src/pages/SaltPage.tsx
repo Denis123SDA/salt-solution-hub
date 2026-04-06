@@ -10,6 +10,24 @@ import {
   ShieldCheck, Clock, Award, Menu, X,
 } from "lucide-react";
 
+/* Reusable decorative salt tablets */
+const SaltTablets = ({ tablets }: { tablets: { size: number; top?: string; bottom?: string; left?: string; right?: string; className: string; opacity?: number }[] }) => (
+  <>
+    {tablets.map((t, i) => (
+      <div
+        key={i}
+        className={`salt-tablet ${t.className}`}
+        style={{
+          width: t.size, height: t.size * 0.45,
+          top: t.top, bottom: t.bottom, left: t.left, right: t.right,
+          opacity: t.opacity ?? 0.5,
+          borderRadius: '50%',
+        }}
+      />
+    ))}
+  </>
+);
+
 const SaltPage = () => {
   const [form, setForm] = useState({ name: "", phone: "", volume: "", comment: "" });
   const [menuOpen, setMenuOpen] = useState(false);
@@ -66,8 +84,15 @@ const SaltPage = () => {
       </header>
 
       {/* ===== HERO ===== */}
-      <section className="py-16 md:py-24 lg:py-28">
-        <div className="container mx-auto">
+      <section className="py-16 md:py-24 lg:py-28 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 48, top: '10%', left: '2%', className: 'salt-float-1', opacity: 0.3 },
+          { size: 28, top: '25%', right: '5%', className: 'salt-float-2', opacity: 0.2 },
+          { size: 64, bottom: '15%', left: '8%', className: 'salt-float-3', opacity: 0.15 },
+          { size: 36, bottom: '30%', right: '3%', className: 'salt-float-4', opacity: 0.25 },
+          { size: 20, top: '60%', left: '45%', className: 'salt-float-5', opacity: 0.2 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="space-y-7">
               <div>
@@ -145,8 +170,14 @@ const SaltPage = () => {
       </section>
 
       {/* ===== PRODUCTS ===== */}
-      <section id="products" className="py-20 md:py-28">
-        <div className="container mx-auto">
+      <section id="products" className="py-20 md:py-28 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 56, top: '5%', right: '4%', className: 'salt-float-2', opacity: 0.2 },
+          { size: 32, top: '40%', left: '3%', className: 'salt-float-4', opacity: 0.25 },
+          { size: 44, bottom: '10%', right: '6%', className: 'salt-float-1', opacity: 0.18 },
+          { size: 24, bottom: '25%', left: '6%', className: 'salt-float-3', opacity: 0.22 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Каталог</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Ассортимент продукции</h2>
@@ -231,8 +262,13 @@ const SaltPage = () => {
       </section>
 
       {/* ===== ADVANTAGES ===== */}
-      <section id="advantages" className="py-20 md:py-28">
-        <div className="container mx-auto">
+      <section id="advantages" className="py-20 md:py-28 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 40, top: '8%', left: '5%', className: 'salt-float-3', opacity: 0.2 },
+          { size: 52, bottom: '12%', right: '3%', className: 'salt-float-1', opacity: 0.15 },
+          { size: 28, top: '50%', right: '7%', className: 'salt-float-5', opacity: 0.25 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Преимущества</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Почему выбирают нас</h2>
@@ -303,8 +339,13 @@ const SaltPage = () => {
       </section>
 
       {/* ===== HOW TO ORDER ===== */}
-      <section id="order" className="py-20 md:py-28">
-        <div className="container mx-auto">
+      <section id="order" className="py-20 md:py-28 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 36, top: '15%', right: '5%', className: 'salt-float-2', opacity: 0.22 },
+          { size: 50, bottom: '20%', left: '4%', className: 'salt-float-4', opacity: 0.18 },
+          { size: 22, top: '45%', left: '8%', className: 'salt-float-1', opacity: 0.28 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Процесс</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Как заказать</h2>
@@ -395,8 +436,12 @@ const SaltPage = () => {
       </section>
 
       {/* ===== CONTACTS ===== */}
-      <section id="contacts" className="py-20 md:py-28">
-        <div className="container mx-auto">
+      <section id="contacts" className="py-20 md:py-28 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 42, top: '10%', left: '3%', className: 'salt-float-5', opacity: 0.2 },
+          { size: 30, bottom: '15%', right: '4%', className: 'salt-float-2', opacity: 0.25 },
+        ]} />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Связаться</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Контакты</h2>

@@ -61,3 +61,50 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 }
+
+/* Salt tablet decorative elements */
+@keyframes salt-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+}
+
+@keyframes salt-float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-6deg); }
+}
+
+@keyframes salt-drift {
+  0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+  33% { transform: translateX(5px) translateY(-8px) rotate(5deg); }
+  66% { transform: translateX(-3px) translateY(4px) rotate(-3deg); }
+}
+
+.salt-tablet {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 35% 35%, hsl(0 0% 100%), hsl(40 10% 92%) 60%, hsl(40 15% 85%));
+  box-shadow: 
+    inset 0 -2px 4px hsl(40 10% 80%),
+    0 2px 8px hsl(0 0% 0% / 0.08),
+    0 1px 3px hsl(0 0% 0% / 0.06);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.salt-tablet::after {
+  content: '';
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 30%;
+  height: 20%;
+  border-radius: 50%;
+  background: hsl(0 0% 100% / 0.6);
+  filter: blur(1px);
+}
+
+.salt-float-1 { animation: salt-float 6s ease-in-out infinite; }
+.salt-float-2 { animation: salt-float-reverse 7s ease-in-out infinite; }
+.salt-float-3 { animation: salt-drift 9s ease-in-out infinite; }
+.salt-float-4 { animation: salt-float 8s ease-in-out infinite 1s; }
+.salt-float-5 { animation: salt-float-reverse 5.5s ease-in-out infinite 0.5s; }
