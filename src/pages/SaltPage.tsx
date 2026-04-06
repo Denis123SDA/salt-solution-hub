@@ -329,7 +329,7 @@ const SaltPage = () => {
       </section>
 
       {/* ===== FORM ===== */}
-      <section id="form" className="bg-section-dark py-20 md:py-28">
+      <section id="form" className="bg-section-dark py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4">
         <div className="container mx-auto">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-10">
