@@ -72,8 +72,7 @@ const SaltPage = () => {
               <div>
                 <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-4">Поставщик в Барнауле</p>
                 <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black leading-[1.12] text-foreground">
-                  Таблетированная соль<br />
-                  Мозырьсоль и Руссоль
+                  Таблетированная соль Мозырьсоль и&nbsp;Руссоль
                 </h1>
               </div>
               <p className="text-lg text-foreground/70 leading-relaxed max-w-lg">
