@@ -1,5 +1,5 @@
 import { useState } from "react";
-import saltHero from "@/assets/salt-hero-new.png";
+import saltHero from "@/assets/salt-hero-generated.png";
 import saltMozyr from "@/assets/salt-mozyr.jpg";
 import saltRussol from "@/assets/salt-russol.jpg";
 import {
