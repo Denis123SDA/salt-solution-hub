@@ -446,7 +446,7 @@ const SaltPage = () => {
       </section>
 
       {/* ===== SEO TEXT ===== */}
-      <section className="bg-section-alt py-16 border-t border-border">
+      <section className="bg-section-alt py-16 rounded-3xl mx-4 md:mx-8 my-4">
         <div className="container mx-auto max-w-4xl">
           <div className="prose prose-sm text-muted-foreground max-w-none space-y-4 leading-relaxed">
             <p>
