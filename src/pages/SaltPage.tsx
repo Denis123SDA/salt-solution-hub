@@ -123,18 +123,21 @@ const SaltPage = () => {
       </section>
 
       {/* ===== TRUST STRIP ===== */}
-      <section className="border-b border-border py-6">
+      <section className="py-10 md:py-14">
         <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { value: "25 кг", label: "фасовка мешков" },
-              { value: "В наличии", label: "всегда на складе" },
-              { value: "Опт / розница", label: "любые объёмы" },
-              { value: "Барнаул", label: "офис и склад" },
-            ].map(({ value, label }) => (
-              <div key={label}>
+              { value: "25 кг", label: "фасовка мешков", icon: Package },
+              { value: "В наличии", label: "всегда на складе", icon: CheckCircle2 },
+              { value: "Опт / розница", label: "любые объёмы", icon: BadgePercent },
+              { value: "Барнаул", label: "офис и склад", icon: MapPin },
+            ].map(({ value, label, icon: Icon }) => (
+              <div key={label} className="group relative bg-card rounded-xl border border-border p-6 text-center transition-all duration-300 hover:shadow-lg hover:border-primary/40 hover:-translate-y-1">
+                <div className="mx-auto mb-3 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary/20">
+                  <Icon className="w-5 h-5 text-primary" strokeWidth={2.5} />
+                </div>
                 <p className="text-xl font-black text-foreground">{value}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
+                <p className="text-sm text-muted-foreground mt-1">{label}</p>
               </div>
             ))}
           </div>
