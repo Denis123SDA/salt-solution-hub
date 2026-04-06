@@ -1,5 +1,6 @@
 import { useState } from "react";
 import saltHero from "@/assets/salt-hero-generated.png";
+import warehouseImg from "@/assets/warehouse.png";
 import saltMozyr from "@/assets/salt-mozyr.jpg";
 import saltRussol from "@/assets/salt-russol.jpg";
 import {
@@ -294,7 +295,7 @@ const SaltPage = () => {
               </div>
             </div>
             <div className="space-y-4">
-              <img src={saltHero} alt="Склад таблетированной соли" loading="lazy" className="rounded-lg w-full aspect-[4/3] object-cover shadow-lg" />
+              <img src={warehouseImg} alt="Склад таблетированной соли" loading="lazy" className="rounded-lg w-full aspect-[4/3] object-cover shadow-lg" />
               <p className="text-sm text-muted-foreground text-center">Наш склад в Барнауле — продукция всегда в наличии</p>
             </div>
           </div>
