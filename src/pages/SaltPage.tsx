@@ -552,20 +552,83 @@ const SaltPage = () => {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="bg-section-dark py-10 border-t border-foreground/10">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2.5">
-              <img src={logoImg} alt="Севуч Плюс" className="w-9 h-9 object-contain brightness-0 invert" />
-              <span className="font-bold text-foreground">Севуч Плюс</span>
+      <footer className="bg-[#1a1a1a] text-white pt-14 pb-0">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10">
+            {/* Column 1: Logo + Contacts */}
+            <div className="flex flex-col gap-6">
+              <img src={logoImg} alt="Севуч Плюс" className="w-24 h-24 object-contain brightness-0 invert" />
+
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-yellow-400 text-sm mb-1">Адрес офиса:</p>
+                  <p className="font-bold">656011, г. Барнаул,<br/>ул. Ярных, 34, пом. Н3</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-yellow-400 text-sm mb-1">Телефон:</p>
+                  <a href="tel:+73852779823" className="font-bold hover:text-yellow-400 transition-colors">+7 (3852) 77-98-23</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Send className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-yellow-400 text-sm mb-1">Email:</p>
+                  <a href="mailto:sevuch@krupa22.ru" className="font-bold hover:text-yellow-400 transition-colors">sevuch@krupa22.ru</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Home className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-yellow-400 text-sm mb-1">Склады:</p>
+                  <p className="font-bold">ул. Ярных, 34<br/>ул. Аносова, 2а</p>
+                </div>
+              </div>
             </div>
-            <p className="text-xs text-foreground/50 text-center max-w-lg">
-              Стоимость продукции носит информационный характер и может изменяться в зависимости от объёма и условий поставки.
-              Актуальная цена уточняется при обращении.
-            </p>
-            <a href="tel:+73852779823" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
-              +7 (3852) 77-98-23
-            </a>
+
+            {/* Column 2: Navigation */}
+            <div className="flex flex-col gap-4">
+              {[
+                { href: "#about", label: "О компании" },
+                { href: "#products", label: "Продукция" },
+                { href: "#production", label: "Производство" },
+                { href: "#price", label: "Прайс-лист" },
+                { href: "#export", label: "Экспорт" },
+                { href: "#contacts", label: "Контакты" },
+              ].map(link => (
+                <a key={link.href} href={link.href} className="text-white font-semibold hover:text-yellow-400 transition-colors text-lg">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Column 3: CTA */}
+            <div className="flex flex-col items-start md:items-end justify-start">
+              <a
+                href="#form"
+                className="bg-yellow-400 text-black font-bold text-lg px-10 py-5 rounded-full hover:bg-yellow-300 transition-colors"
+              >
+                Написать нам
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10">
+          <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/50">
+            <span>Copyright © 2018 - 2025</span>
+            <span>Политика конфиденциальности</span>
+            <div className="text-right">
+              <p>Пн–Пт с 9:00 до 17:00</p>
+              <p>Сб–Вс – выходной</p>
+            </div>
           </div>
         </div>
       </footer>
