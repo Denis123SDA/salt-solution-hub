@@ -106,18 +106,18 @@ const SaltPage = () => {
             </div>
             <div className="bg-card rounded-2xl shadow-2xl overflow-hidden">
               <div className="grid grid-cols-2">
-                <div className="flex items-center justify-center p-6 md:p-10 aspect-square">
+                <div className="flex items-end justify-center p-6 md:p-10 h-[320px] md:h-[380px]">
                   <img
                     src={saltMozyr}
                     alt="Соль Мозырьсоль 25 кг"
-                    className="max-w-full max-h-[280px] object-contain"
+                    className="h-[240px] md:h-[300px] w-auto object-contain"
                   />
                 </div>
-                <div className="flex items-center justify-center p-6 md:p-10 aspect-square border-l border-border">
+                <div className="flex items-end justify-center p-6 md:p-10 h-[320px] md:h-[380px] border-l border-border">
                   <img
                     src={saltRussol}
                     alt="Соль Руссоль 25 кг"
-                    className="max-w-full max-h-[280px] object-contain"
+                    className="h-[240px] md:h-[300px] w-auto object-contain"
                   />
                 </div>
               </div>
