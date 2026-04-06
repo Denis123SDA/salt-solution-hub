@@ -104,32 +104,17 @@ const SaltPage = () => {
                 Работаем с физическими и юридическими лицами
               </p>
             </div>
-            <div className="bg-card rounded-2xl shadow-2xl overflow-hidden">
-              <div className="grid grid-cols-2">
-                <div className="flex items-end justify-center p-6 md:p-10 h-[320px] md:h-[380px]">
-                  <img
-                    src={saltMozyr}
-                    alt="Соль Мозырьсоль 25 кг"
-                    className="h-[240px] md:h-[300px] w-auto object-contain"
-                  />
-                </div>
-                <div className="flex items-end justify-center p-6 md:p-10 h-[320px] md:h-[380px] border-l border-border">
-                  <img
-                    src={saltRussol}
-                    alt="Соль Руссоль 25 кг"
-                    className="h-[240px] md:h-[300px] w-auto object-contain"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 border-t border-border">
-                <div className="py-3 text-center">
-                  <p className="text-base font-bold text-foreground">Мозырьсоль</p>
-                  <p className="text-xs text-muted-foreground">25 кг</p>
-                </div>
-                <div className="py-3 text-center border-l border-border">
-                  <p className="text-base font-bold text-foreground">Руссоль</p>
-                  <p className="text-xs text-muted-foreground">25 кг</p>
-                </div>
+            <div className="relative">
+              <img
+                src={saltHero}
+                alt="Таблетированная соль на складе в Барнауле"
+                width={1920}
+                height={1080}
+                className="rounded-lg shadow-2xl object-cover w-full aspect-[4/3]"
+              />
+              <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground px-5 py-3 rounded-md shadow-lg">
+                <p className="text-2xl font-black">25 кг</p>
+                <p className="text-xs opacity-80">мешок</p>
               </div>
             </div>
           </div>
