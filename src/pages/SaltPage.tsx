@@ -104,29 +104,31 @@ const SaltPage = () => {
                 Работаем с физическими и юридическими лицами
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative bg-card rounded-lg shadow-xl overflow-hidden">
-                <img
-                  src={saltMozyr}
-                  alt="Соль Мозырьсоль 25 кг"
-                  width={600}
-                  height={800}
-                  className="w-full h-full object-contain p-4"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-primary text-primary-foreground px-4 py-2 text-center">
-                  <p className="text-sm font-bold">Мозырьсоль</p>
+            <div className="bg-card rounded-2xl shadow-2xl overflow-hidden">
+              <div className="grid grid-cols-2">
+                <div className="flex items-center justify-center p-6 md:p-10 aspect-square">
+                  <img
+                    src={saltMozyr}
+                    alt="Соль Мозырьсоль 25 кг"
+                    className="max-w-full max-h-[280px] object-contain"
+                  />
+                </div>
+                <div className="flex items-center justify-center p-6 md:p-10 aspect-square border-l border-border">
+                  <img
+                    src={saltRussol}
+                    alt="Соль Руссоль 25 кг"
+                    className="max-w-full max-h-[280px] object-contain"
+                  />
                 </div>
               </div>
-              <div className="relative bg-card rounded-lg shadow-xl overflow-hidden">
-                <img
-                  src={saltRussol}
-                  alt="Соль Руссоль 25 кг"
-                  width={600}
-                  height={800}
-                  className="w-full h-full object-contain p-4"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-primary text-primary-foreground px-4 py-2 text-center">
-                  <p className="text-sm font-bold">Руссоль</p>
+              <div className="grid grid-cols-2 border-t border-border">
+                <div className="py-3 text-center">
+                  <p className="text-base font-bold text-foreground">Мозырьсоль</p>
+                  <p className="text-xs text-muted-foreground">25 кг</p>
+                </div>
+                <div className="py-3 text-center border-l border-border">
+                  <p className="text-base font-bold text-foreground">Руссоль</p>
+                  <p className="text-xs text-muted-foreground">25 кг</p>
                 </div>
               </div>
             </div>
