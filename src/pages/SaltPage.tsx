@@ -71,12 +71,12 @@ const SaltPage = () => {
             <div className="space-y-7">
               <div>
                 <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-4">Поставщик в Барнауле</p>
-                <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black leading-[1.12] text-section-dark-foreground">
+                <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black leading-[1.12] text-foreground">
                   Таблетированная соль<br />
                   Мозырьсоль и Руссоль
                 </h1>
               </div>
-              <p className="text-lg text-section-dark-foreground/70 leading-relaxed max-w-lg">
+              <p className="text-lg text-foreground/70 leading-relaxed max-w-lg">
                 Для водоочистки, котельных, производств и частного использования
               </p>
               <ul className="space-y-3">
@@ -86,7 +86,7 @@ const SaltPage = () => {
                   "Опт и розница",
                   "Самовывоз и доставка",
                 ].map(item => (
-                  <li key={item} className="flex items-center gap-3 text-section-dark-foreground/90">
+                  <li key={item} className="flex items-center gap-3 text-foreground/90">
                     <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                     <span className="font-medium">{item}</span>
                   </li>
@@ -96,11 +96,11 @@ const SaltPage = () => {
                 <a href="#form" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25">
                   Получить цену
                 </a>
-                <a href="tel:+73852779823" className="border border-section-dark-foreground/30 text-section-dark-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-section-dark-foreground/10 transition-colors">
+                <a href="tel:+73852779823" className="border border-foreground/30 text-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-foreground/10 transition-colors">
                   Позвонить
                 </a>
               </div>
-              <p className="text-sm text-section-dark-foreground/50 flex items-center gap-2">
+              <p className="text-sm text-foreground/50 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-primary" />
                 Работаем с физическими и юридическими лицами
               </p>
@@ -331,8 +331,8 @@ const SaltPage = () => {
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Бесплатная консультация</p>
-              <h2 className="text-3xl md:text-[36px] font-black text-section-dark-foreground mb-4">Оставить заявку</h2>
-              <p className="text-lg text-section-dark-foreground/70">Оставьте заявку — рассчитаем стоимость под ваш объём</p>
+              <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-4">Оставить заявку</h2>
+              <p className="text-lg text-foreground/70">Оставьте заявку — рассчитаем стоимость под ваш объём</p>
             </div>
             <form onSubmit={handleSubmit} className="bg-card rounded-lg p-8 md:p-10 shadow-2xl space-y-5">
               <div className="grid md:grid-cols-2 gap-5">
@@ -463,20 +463,20 @@ const SaltPage = () => {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="bg-section-dark py-10 border-t border-section-dark-foreground/10">
+      <footer className="bg-section-dark py-10 border-t border-foreground/10">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-black text-xs">С+</span>
               </div>
-              <span className="font-bold text-section-dark-foreground">Севуч Плюс</span>
+              <span className="font-bold text-foreground">Севуч Плюс</span>
             </div>
-            <p className="text-xs text-section-dark-foreground/50 text-center max-w-lg">
+            <p className="text-xs text-foreground/50 text-center max-w-lg">
               Стоимость продукции носит информационный характер и может изменяться в зависимости от объёма и условий поставки.
               Актуальная цена уточняется при обращении.
             </p>
-            <a href="tel:+73852779823" className="text-sm font-semibold text-section-dark-foreground hover:text-primary transition-colors">
+            <a href="tel:+73852779823" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
               +7 (3852) 77-98-23
             </a>
           </div>
