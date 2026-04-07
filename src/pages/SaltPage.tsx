@@ -429,9 +429,15 @@ const SaltPage = () => {
 
       {/* ===== DELIVERY ===== */}
       <section className="py-10 md:py-16 px-4 md:px-8">
-        <div className="container mx-auto bg-[hsl(var(--muted))] rounded-3xl overflow-hidden relative">
+        <div className="container mx-auto rounded-3xl overflow-hidden relative">
+          {/* Left beige bg that covers ~55% */}
+          <div className="absolute inset-y-0 left-0 w-[55%] bg-[hsl(var(--muted))] rounded-3xl" />
+          {/* Right warehouse bg */}
+          <div className="absolute inset-y-0 right-0 w-[50%] overflow-hidden rounded-r-3xl">
+            <img src={warehouseBgImg} alt="" loading="lazy" className="w-full h-full object-cover" />
+          </div>
           <div className="grid md:grid-cols-2 items-center relative z-10">
-            <div className="p-10 md:p-14">
+            <div className="p-10 md:p-14 bg-[hsl(var(--muted))] md:bg-transparent rounded-3xl md:rounded-none">
               <h2 className="text-3xl md:text-[40px] font-black text-foreground leading-tight mb-6">
                 Условия доставки<br />и самовывоза
               </h2>
@@ -443,9 +449,8 @@ const SaltPage = () => {
                 Подробнее
               </a>
             </div>
-            <div className="relative h-full min-h-[300px] md:min-h-[400px]">
-              <img src={warehouseBgImg} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-              <img src={deliveryTruckImg} alt="Доставка таблетированной соли" loading="lazy" width={960} height={640} className="relative z-10 w-full h-full object-contain object-center p-4" />
+            <div className="relative flex items-center justify-center py-6 md:py-0">
+              <img src={deliveryTruckImg} alt="Доставка таблетированной соли" loading="lazy" width={960} height={640} className="relative z-10 w-full max-w-[480px] object-contain drop-shadow-2xl" />
             </div>
           </div>
         </div>
