@@ -212,25 +212,33 @@ const SaltPage = () => {
                 img: saltMozyr,
                 alt: "Соль Мозырьсоль",
                 name: "Мозырьсоль",
-                desc: "Высококачественная таблетированная соль для систем водоочистки и промышленного применения.",
+                subtitle: "Таблетированная соль Мозырьсоль (Беларусь)",
+                desc: "Решение для объектов с постоянной нагрузкой: котельные, производственные линии, системы водоподготовки.",
                 features: [
-                  "Подходит для фильтров и умягчителей воды",
-                  "Используется в котельных и на производстве",
-                  "Стабильная регенерация оборудования",
-                  "Фасовка: мешки 25 кг",
+                  "Стабильное качество от партии к партии",
+                  "Равномерная растворимость без образования осадка",
+                  "Минимальная нагрузка на оборудование",
+                  "Подходит для непрерывной эксплуатации",
                 ],
+                packing: "Фасовка: мешки 25 кг",
+                usage: "Используется на предприятиях и в коммерческих системах водоочистки",
+                cta: "Запросить оптовую цену",
               },
               {
                 img: saltRussol,
                 alt: "Соль Руссоль",
                 name: "Руссоль",
-                desc: "Надёжный вариант для бытового и коммерческого использования. Оптимальное решение для систем очистки воды.",
+                subtitle: "Таблетированная соль Руссоль (Россия)",
+                desc: "Практичное решение для регулярного использования в системах водоочистки и обслуживаемых объектах.",
                 features: [
-                  "Для частных домов и бизнеса",
-                  "Подходит для различных систем водоочистки",
-                  "Стабильное качество продукции",
-                  "Фасовка: мешки 25 кг",
+                  "Стабильная работа в стандартных условиях",
+                  "Оптимальный вариант по стоимости",
+                  "Подходит для большинства систем умягчения воды",
+                  "Постоянное наличие на складе",
                 ],
+                packing: "Фасовка: мешки 25 кг",
+                usage: "Используется в ЖКХ, частных и коммерческих объектах",
+                cta: "Запросить цену",
               },
             ].map(product => (
               <div key={product.name} className="border border-border rounded-lg overflow-hidden hover:shadow-xl transition-shadow group flex flex-col">
@@ -238,9 +246,10 @@ const SaltPage = () => {
                   <img src={product.img} alt={product.alt} loading="lazy" width={800} height={800} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
-                  <h3 className="text-2xl font-bold mb-3 text-foreground">{product.name}</h3>
+                  <h3 className="text-2xl font-bold mb-1 text-foreground">{product.name}</h3>
+                  <p className="text-xs text-muted-foreground mb-3 italic">{product.subtitle}</p>
                   <p className="text-muted-foreground mb-5 leading-relaxed">{product.desc}</p>
-                  <ul className="space-y-2.5 mb-6 flex-1">
+                  <ul className="space-y-2.5 mb-4 flex-1">
                     {product.features.map(item => (
                       <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
                         <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
@@ -248,12 +257,38 @@ const SaltPage = () => {
                       </li>
                     ))}
                   </ul>
-                  <a href="#form" className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-md font-semibold hover:bg-primary/90 transition-colors w-full md:w-auto">
-                    Узнать цену <ChevronRight className="w-4 h-4" />
+                  <p className="text-sm text-muted-foreground mb-1">{product.packing}</p>
+                  <p className="text-sm text-primary font-medium mb-6">👉 {product.usage}</p>
+                  <a href="#form" className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-full font-semibold hover:bg-primary/90 transition-colors w-full">
+                    {product.cta} <ChevronRight className="w-4 h-4" />
                   </a>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Comparison / help block */}
+          <div className="mt-14 bg-card border border-border rounded-2xl p-8 md:p-10">
+            <h3 className="text-2xl font-bold text-foreground mb-6">🔥 Какую соль выбрать под задачу</h3>
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="flex items-start gap-3">
+                <span className="text-primary font-bold text-lg mt-0.5">→</span>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Для объектов с постоянной нагрузкой и требованием к стабильности</p>
+                  <p className="text-primary font-bold">Мозырьсоль</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-primary font-bold text-lg mt-0.5">→</span>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Для регулярного использования и оптимизации затрат</p>
+                  <p className="text-primary font-bold">Руссоль</p>
+                </div>
+              </div>
+            </div>
+            <p className="text-muted-foreground text-center">
+              Если не уверены — <a href="#form" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80">подберём под вашу систему и объём</a>.
+            </p>
           </div>
         </div>
       </section>
