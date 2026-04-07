@@ -5,6 +5,7 @@ import saltMozyr from "@/assets/salt-mozyr.jpg";
 import saltRussol from "@/assets/salt-russol.jpg";
 import logoImg from "@/assets/logo.png";
 import deliveryTruckImg from "@/assets/delivery-truck.png";
+import warehouseBgImg from "@/assets/warehouse-bg.png";
 import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
@@ -428,8 +429,8 @@ const SaltPage = () => {
 
       {/* ===== DELIVERY ===== */}
       <section className="py-10 md:py-16 px-4 md:px-8">
-        <div className="container mx-auto bg-[hsl(var(--muted))] rounded-3xl overflow-hidden">
-          <div className="grid md:grid-cols-2 items-center">
+        <div className="container mx-auto bg-[hsl(var(--muted))] rounded-3xl overflow-hidden relative">
+          <div className="grid md:grid-cols-2 items-center relative z-10">
             <div className="p-10 md:p-14">
               <h2 className="text-3xl md:text-[40px] font-black text-foreground leading-tight mb-6">
                 Условия доставки<br />и самовывоза
@@ -442,8 +443,9 @@ const SaltPage = () => {
                 Подробнее
               </a>
             </div>
-            <div className="h-full">
-              <img src={deliveryTruckImg} alt="Доставка таблетированной соли" loading="lazy" width={960} height={640} className="w-full h-full object-cover" />
+            <div className="relative h-full min-h-[300px] md:min-h-[400px]">
+              <img src={warehouseBgImg} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              <img src={deliveryTruckImg} alt="Доставка таблетированной соли" loading="lazy" width={960} height={640} className="relative z-10 w-full h-full object-contain object-center p-4" />
             </div>
           </div>
         </div>
