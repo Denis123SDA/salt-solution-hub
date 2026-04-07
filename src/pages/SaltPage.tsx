@@ -258,7 +258,7 @@ const SaltPage = () => {
                     ))}
                   </ul>
                   <p className="text-sm text-muted-foreground mb-1">{product.packing}</p>
-                  <p className="text-sm text-primary font-medium mb-6">👉 {product.usage}</p>
+                  <p className="text-sm text-primary font-medium mb-6">{product.usage}</p>
                   <a href="#form" className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-full font-semibold hover:bg-primary/90 transition-colors w-full">
                     {product.cta} <ChevronRight className="w-4 h-4" />
                   </a>
@@ -267,27 +267,10 @@ const SaltPage = () => {
             ))}
           </div>
 
-          {/* Comparison / help block */}
-          <div className="mt-14 bg-card border border-border rounded-2xl p-8 md:p-10">
-            <h3 className="text-2xl font-bold text-foreground mb-6">🔥 Какую соль выбрать под задачу</h3>
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div className="flex items-start gap-3">
-                <span className="text-primary font-bold text-lg mt-0.5">→</span>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Для объектов с постоянной нагрузкой и требованием к стабильности</p>
-                  <p className="text-primary font-bold">Мозырьсоль</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-primary font-bold text-lg mt-0.5">→</span>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Для регулярного использования и оптимизации затрат</p>
-                  <p className="text-primary font-bold">Руссоль</p>
-                </div>
-              </div>
-            </div>
-            <p className="text-muted-foreground text-center">
-              Если не уверены — <a href="#form" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80">подберём под вашу систему и объём</a>.
+          {/* Help CTA */}
+          <div className="mt-14 text-center">
+            <p className="text-muted-foreground text-lg">
+              Не уверены, какая соль подойдёт? <a href="#form" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80">Подберём под вашу систему и объём</a>.
             </p>
           </div>
         </div>
