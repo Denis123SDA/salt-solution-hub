@@ -4,6 +4,7 @@ import warehouseImg from "@/assets/warehouse.png";
 import saltMozyr from "@/assets/salt-mozyr.jpg";
 import saltRussol from "@/assets/salt-russol.jpg";
 import logoImg from "@/assets/logo.png";
+import deliveryTruckImg from "@/assets/delivery-truck.png";
 import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
