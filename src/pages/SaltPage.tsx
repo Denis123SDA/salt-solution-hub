@@ -425,6 +425,29 @@ const SaltPage = () => {
         </div>
       </section>
 
+      {/* ===== DELIVERY ===== */}
+      <section className="py-10 md:py-16 px-4 md:px-8">
+        <div className="container mx-auto bg-[hsl(var(--muted))] rounded-3xl overflow-hidden">
+          <div className="grid md:grid-cols-2 items-center">
+            <div className="p-10 md:p-14">
+              <h2 className="text-3xl md:text-[40px] font-black text-foreground leading-tight mb-6">
+                Условия доставки<br />и самовывоза
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                Мы осуществляем доставку по всей территории России с помощью автомобильных и железнодорожных перевозок.
+                Также возможен самовывоз со складов в Барнауле — это удобно и экономит ваше время. Условия доставки обсуждаются индивидуально.
+              </p>
+              <a href="#form" className="inline-flex items-center bg-foreground text-background px-8 py-4 rounded-full font-bold hover:bg-foreground/85 transition-colors">
+                Подробнее
+              </a>
+            </div>
+            <div className="h-full">
+              <img src={deliveryTruckImg} alt="Доставка таблетированной соли" loading="lazy" width={960} height={640} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== FORM ===== */}
       <section id="form" className="bg-section-dark py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4">
         <div className="container mx-auto">
