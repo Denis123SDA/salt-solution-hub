@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SSH_PORT: ${{ secrets.SSH_PORT != '' && secrets.SSH_PORT || '22' }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     steps:
       - name: Checkout
@@ -29,12 +33,19 @@ jobs:
 
       - name: Setup SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          set -eu
+          [ -n "$SSH_HOST" ] || { echo "SSH_HOST secret is empty"; exit 1; }
+          [ -n "$SSH_PRIVATE_KEY" ] || { echo "SSH_PRIVATE_KEY secret is empty"; exit 1; }
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p "$SSH_PORT" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+          touch ~/.ssh/known_hosts
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
+          set -eu
+          [ -n "$SSH_USER" ] || { echo "SSH_USER secret is empty"; exit 1; }
+          [ -n "$SSH_TARGET_DIR" ] || { echo "SSH_TARGET_DIR secret is empty"; exit 1; }
           rsync -avz --delete -e "ssh -p $SSH_PORT" dist/ \
-          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_TARGET_DIR }}/
+          "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR/"
