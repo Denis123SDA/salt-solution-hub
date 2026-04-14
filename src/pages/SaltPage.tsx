@@ -10,8 +10,35 @@ import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
   CheckCircle2, Phone, MessageCircle, Send, ChevronRight,
-  ShieldCheck, Clock, Award, Menu, X,
+  ShieldCheck, Clock, Award, Menu, X, Mail,
 } from "lucide-react";
+
+const PHONE = "+79235690767";
+const PHONE_DISPLAY = "+7 (923) 569-07-67";
+const EMAIL = "sevuch@krupa22.ru";
+const WA_LINK = `https://wa.me/${PHONE}`;
+const TG_LINK = "https://t.me/+79235690767";
+const MAX_LINK = "https://max.ru/"; // placeholder — replace with actual MAX link
+
+const prefillMsg = encodeURIComponent(
+  "Здравствуйте! Интересует ваша продукция.\nНужный объем: _____\nГород: _____\nРасскажите, пожалуйста, подробнее по цене и условиям поставки."
+);
+const emailSubject = encodeURIComponent("Запрос цены");
+const emailBody = encodeURIComponent(
+  "Здравствуйте! Интересует товар.\nНужный объем: _____\nПодскажите, пожалуйста, цену и условия."
+);
+
+/* Messenger icons as inline SVGs for brand colors */
+const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
+const TelegramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+  </svg>
+);
 
 /* Reusable decorative salt tablets */
 const SaltTablets = ({ tablets }: { tablets: { size: number; top?: string; bottom?: string; left?: string; right?: string; className: string; opacity?: number }[] }) => (
@@ -31,15 +58,64 @@ const SaltTablets = ({ tablets }: { tablets: { size: number; top?: string; botto
   </>
 );
 
-const SaltPage = () => {
-  const [form, setForm] = useState({ name: "", phone: "", volume: "", comment: "" });
-  const [menuOpen, setMenuOpen] = useState(false);
+/* Messenger row component */
+const MessengerRow = ({ size = "md" }: { size?: "sm" | "md" }) => {
+  const iconSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";
+  const btnSize = size === "sm" ? "w-8 h-8" : "w-10 h-10";
+  return (
+    <div className="flex items-center gap-2">
+      <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className={`${btnSize} rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
+        <WhatsAppIcon className={iconSize} />
+      </a>
+      <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className={`${btnSize} rounded-full bg-[#229ED9] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
+        <TelegramIcon className={iconSize} />
+      </a>
+      <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className={`${btnSize} rounded-full bg-[#168DE2] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
+        <MessageCircle className={iconSize} />
+      </a>
+      <a href={`mailto:${EMAIL}?subject=${emailSubject}&body=${emailBody}`} title="Email" className={`${btnSize} rounded-full bg-muted text-foreground flex items-center justify-center hover:opacity-80 transition-opacity`}>
+        <Mail className={iconSize} />
+      </a>
+    </div>
+  );
+};
 
-  const handleSubmit = (e: React.FormEvent) => {
+/* ===== MODALS ===== */
+
+const Overlay = ({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-card rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 md:p-8 animate-in fade-in zoom-in-95 duration-200">
+        <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"><X className="w-5 h-5" /></button>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const SaltPage = () => {
+  const [form, setForm] = useState({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "" });
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [priceModal, setPriceModal] = useState(false);
+  const [contactModal, setContactModal] = useState(false);
+  const [formSent, setFormSent] = useState(false);
+
+  const handlePriceSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `Заявка на соль:\nИмя: ${form.name}\nТелефон: ${form.phone}\nОбъём: ${form.volume || "не указан"}\nКомментарий: ${form.comment || "—"}`;
-    window.open(`https://wa.me/79235690767?text=${encodeURIComponent(msg)}`, "_blank");
+    const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКомментарий: ${form.comment || "—"}`;
+    window.open(`${WA_LINK}?text=${encodeURIComponent(msg)}`, "_blank");
+    setFormSent(true);
   };
+
+  const resetAndClosePrice = () => {
+    setPriceModal(false);
+    setFormSent(false);
+    setForm({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "" });
+  };
+
+  const openPriceModal = () => { setFormSent(false); setPriceModal(true); };
 
   const navLinks = [
     { href: "#products", label: "Продукция" },
@@ -51,14 +127,136 @@ const SaltPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* ===== PRICE MODAL ===== */}
+      <Overlay open={priceModal} onClose={resetAndClosePrice}>
+        {formSent ? (
+          <div className="text-center py-8 space-y-4">
+            <CheckCircle2 className="w-14 h-14 text-primary mx-auto" />
+            <h3 className="text-xl font-bold text-foreground">Спасибо, заявка отправлена!</h3>
+            <p className="text-muted-foreground">Мы свяжемся с вами и рассчитаем стоимость.</p>
+            <button onClick={resetAndClosePrice} className="mt-4 bg-primary text-primary-foreground px-8 py-3 rounded-md font-bold hover:bg-primary/90 transition-colors">Закрыть</button>
+          </div>
+        ) : (
+          <>
+            <h3 className="text-xl font-bold text-foreground mb-1">Получить цену</h3>
+            <p className="text-sm text-muted-foreground mb-6">Цена зависит от объёма — заполните форму, и мы рассчитаем стоимость</p>
+            <form onSubmit={handlePriceSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground block mb-1.5">Имя *</label>
+                  <input type="text" required placeholder="Ваше имя" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground block mb-1.5">Телефон *</label>
+                  <input type="tel" required placeholder="+7 (___) ___-__-__" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Какой товар интересует</label>
+                <select value={form.product} onChange={e => setForm(p => ({ ...p, product: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="">Выберите товар</option>
+                  <option value="Мозырьсоль">Мозырьсоль (Беларусь)</option>
+                  <option value="Руссоль">Руссоль (Россия)</option>
+                  <option value="Оба варианта">Оба варианта</option>
+                </select>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground block mb-1.5">Нужный объём</label>
+                  <input type="text" placeholder="Напр.: 5 тонн, 20 мешков" value={form.volume} onChange={e => setForm(p => ({ ...p, volume: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground block mb-1.5">Город</label>
+                  <select value={form.city} onChange={e => setForm(p => ({ ...p, city: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <option value="Барнаул">Барнаул</option>
+                    <option value="Кемерово">Кемерово</option>
+                    <option value="Другой">Другой</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Комментарий</label>
+                <textarea placeholder="Расскажите о вашей задаче" value={form.comment} onChange={e => setForm(p => ({ ...p, comment: e.target.value }))} rows={2} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
+              </div>
+              <button type="submit" className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+                <Send className="w-5 h-5" /> Отправить заявку
+              </button>
+              <p className="text-xs text-muted-foreground text-center">Заявка отправляется в WhatsApp — мы ответим быстро</p>
+            </form>
+          </>
+        )}
+      </Overlay>
+
+      {/* ===== CONTACT MODAL (Оставить заявку) ===== */}
+      <Overlay open={contactModal} onClose={() => setContactModal(false)}>
+        <h3 className="text-xl font-bold text-foreground mb-2">Выберите способ связи</h3>
+        <p className="text-sm text-muted-foreground mb-6">Напишите нам удобным способом — текст сообщения подставится автоматически</p>
+        <div className="space-y-3">
+          <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-[#25D366] hover:bg-[#25D366]/5 transition-all group">
+            <div className="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0">
+              <WhatsAppIcon className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="font-bold text-foreground group-hover:text-[#25D366]">Написать в WhatsApp</p>
+              <p className="text-sm text-muted-foreground">Ответим в течение 15 минут</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
+          </a>
+          <a href={`${TG_LINK}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-[#229ED9] hover:bg-[#229ED9]/5 transition-all group">
+            <div className="w-12 h-12 rounded-full bg-[#229ED9] text-white flex items-center justify-center shrink-0">
+              <TelegramIcon className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="font-bold text-foreground group-hover:text-[#229ED9]">Написать в Telegram</p>
+              <p className="text-sm text-muted-foreground">Быстрый ответ в мессенджере</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
+          </a>
+          <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-[#168DE2] hover:bg-[#168DE2]/5 transition-all group">
+            <div className="w-12 h-12 rounded-full bg-[#168DE2] text-white flex items-center justify-center shrink-0">
+              <MessageCircle className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="font-bold text-foreground group-hover:text-[#168DE2]">Написать в MAX</p>
+              <p className="text-sm text-muted-foreground">Свяжемся с вами в MAX</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
+          </a>
+          <a href={`mailto:${EMAIL}?subject=${emailSubject}&body=${emailBody}`} className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-all group">
+            <div className="w-12 h-12 rounded-full bg-muted text-foreground flex items-center justify-center shrink-0">
+              <Mail className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="font-bold text-foreground group-hover:text-primary">Отправить на почту</p>
+              <p className="text-sm text-muted-foreground">{EMAIL}</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
+          </a>
+        </div>
+        <div className="mt-6 pt-4 border-t border-border">
+          <p className="text-sm text-muted-foreground text-center mb-3">Или заполните форму с расчётом цены</p>
+          <button onClick={() => { setContactModal(false); openPriceModal(); }} className="w-full bg-primary text-primary-foreground py-3 rounded-md font-bold hover:bg-primary/90 transition-colors">
+            Заполнить форму
+          </button>
+        </div>
+      </Overlay>
+
       {/* ===== TOP BAR ===== */}
       <div className="hidden md:block bg-foreground text-foreground/60 py-2">
         <div className="container mx-auto flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 text-background/60">
             <MapPin className="w-3.5 h-3.5" />
-            <span>г. Барнаул, ул. Ярных, 34, помещ. н3</span>
+            <span>Барнаул и Кемерово</span>
           </div>
-          <a href="tel:+79235690767" className="text-background/60 hover:text-primary transition-colors font-medium">+7 (923) 569-07-67</a>
+          <div className="flex items-center gap-4">
+            <a href={`tel:+${PHONE}`} className="text-background/60 hover:text-primary transition-colors font-medium">{PHONE_DISPLAY}</a>
+            <div className="flex items-center gap-1.5">
+              <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="text-background/60 hover:text-[#25D366] transition-colors"><WhatsAppIcon className="w-4 h-4" /></a>
+              <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className="text-background/60 hover:text-[#229ED9] transition-colors"><TelegramIcon className="w-4 h-4" /></a>
+              <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className="text-background/60 hover:text-[#168DE2] transition-colors"><MessageCircle className="w-4 h-4" /></a>
+              <a href={`mailto:${EMAIL}`} title="Email" className="text-background/60 hover:text-primary transition-colors"><Mail className="w-4 h-4" /></a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -73,9 +271,9 @@ const SaltPage = () => {
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors py-1 border-b-2 border-transparent hover:border-primary">{l.label}</a>
             ))}
           </nav>
-          <a href="#form" className="hidden md:inline-flex bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-bold hover:bg-foreground/85 transition-colors">
+          <button onClick={() => setContactModal(true)} className="hidden md:inline-flex bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-bold hover:bg-foreground/85 transition-colors">
             Оставить заявку
-          </a>
+          </button>
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-foreground">
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -86,9 +284,12 @@ const SaltPage = () => {
               {navLinks.map(l => (
                 <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-sm font-semibold text-foreground py-2">{l.label}</a>
               ))}
-              <a href="#form" className="bg-foreground text-background px-5 py-3 rounded-full text-sm font-bold text-center mt-2">
+              <button onClick={() => { setMenuOpen(false); setContactModal(true); }} className="bg-foreground text-background px-5 py-3 rounded-full text-sm font-bold text-center mt-2">
                 Оставить заявку
-              </a>
+              </button>
+              <div className="flex justify-center mt-2">
+                <MessengerRow size="sm" />
+              </div>
             </div>
           </div>
         )}
@@ -112,13 +313,13 @@ const SaltPage = () => {
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="space-y-7">
               <div>
-                <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-4">Поставщик в Барнауле</p>
+                <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-4">Поставщик в Барнауле и Кемерово</p>
                 <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black leading-[1.12] text-foreground">
                   Таблетированная соль Мозырьсоль и&nbsp;Руссоль
                 </h1>
               </div>
               <p className="text-lg text-foreground/70 leading-relaxed max-w-lg">
-                Для водоочистки, котельных, производств и частного использования
+                Для водоочистки, котельных, производств и частного использования. Работаем в Барнауле и Кемерово.
               </p>
               <ul className="space-y-3">
                 {[
@@ -134,17 +335,20 @@ const SaltPage = () => {
                 ))}
               </ul>
               <div className="flex flex-wrap gap-4 pt-1">
-                <a href="#form" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25">
+                <button onClick={openPriceModal} className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25">
                   Получить цену
-                </a>
-                <a href="tel:+79235690767" className="border border-foreground/30 text-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-foreground/10 transition-colors">
+                </button>
+                <a href={`tel:+${PHONE}`} className="border border-foreground/30 text-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-foreground/10 transition-colors">
                   Позвонить
                 </a>
               </div>
-              <p className="text-sm text-foreground/50 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-primary" />
-                Работаем с физическими и юридическими лицами
-              </p>
+              <div className="flex items-center gap-4">
+                <p className="text-sm text-foreground/50 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  Работаем с физическими и юридическими лицами
+                </p>
+              </div>
+              <MessengerRow />
             </div>
             <div className="relative">
               <img
@@ -177,7 +381,7 @@ const SaltPage = () => {
               { value: "25 кг", label: "фасовка мешков", icon: Package },
               { value: "В наличии", label: "всегда на складе", icon: CheckCircle2 },
               { value: "Опт / розница", label: "любые объёмы", icon: BadgePercent },
-              { value: "Барнаул", label: "офис и склад", icon: MapPin },
+              { value: "2 города", label: "Барнаул и Кемерово", icon: MapPin },
             ].map(({ value, label, icon: Icon }) => (
               <div key={label} className="group relative bg-card rounded-xl border border-border p-6 text-center transition-all duration-300 hover:shadow-lg hover:border-primary/40 hover:-translate-y-1">
                 <div className="mx-auto mb-3 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary/20">
@@ -261,9 +465,9 @@ const SaltPage = () => {
                   </ul>
                   <p className="text-sm text-muted-foreground mb-1">{product.packing}</p>
                   <p className="text-sm text-primary font-medium mb-6">{product.usage}</p>
-                  <a href="#form" className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-full font-semibold hover:bg-primary/90 transition-colors w-full">
+                  <button onClick={openPriceModal} className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-full font-semibold hover:bg-primary/90 transition-colors w-full">
                     {product.cta} <ChevronRight className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
@@ -272,7 +476,7 @@ const SaltPage = () => {
           {/* Help CTA */}
           <div className="mt-14 text-center">
             <p className="text-muted-foreground text-lg">
-              Не уверены, какая соль подойдёт? <a href="#form" className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80">Подберём под вашу систему и объём</a>.
+              Не уверены, какая соль подойдёт? <button onClick={openPriceModal} className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80">Подберём под вашу систему и объём</button>.
             </p>
           </div>
         </div>
@@ -330,7 +534,7 @@ const SaltPage = () => {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Package, title: "Всегда в наличии", text: "Стабильные запасы на складе в Барнауле" },
+              { icon: Package, title: "Всегда в наличии", text: "Стабильные запасы на складах в Барнауле и Кемерово" },
               { icon: Clock, title: "Быстрая отгрузка", text: "Отгрузка в день обращения при наличии" },
               { icon: BadgePercent, title: "Скидки при объёмах", text: "Выгодные условия для оптовых покупателей" },
               { icon: Truck, title: "Самовывоз и доставка", text: "Удобные варианты получения товара" },
@@ -357,15 +561,15 @@ const SaltPage = () => {
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">О компании</p>
-              <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-6 leading-tight">Надёжный поставщик таблетированной соли в&nbsp;Барнауле</h2>
+              <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-6 leading-tight">Надёжный поставщик таблетированной соли в&nbsp;Барнауле и&nbsp;Кемерово</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed text-base">
                 <p>
                   Компания «Севуч Плюс» — поставщик таблетированной соли для предприятий, котельных, систем водоочистки
-                  и частных клиентов в Барнауле и Алтайском крае.
+                  и частных клиентов в Барнауле, Кемерово и прилегающих регионах.
                 </p>
                 <p>
                   Мы работаем напрямую с производителями Мозырьсоль и Руссоль, что гарантирует стабильное качество
-                  и конкурентные цены. Продукция всегда в наличии на нашем складе.
+                  и конкурентные цены. Продукция всегда в наличии на наших складах.
                 </p>
                 <p>
                   Работаем с физическими и юридическими лицами, предлагаем оптовые и розничные поставки
@@ -376,7 +580,7 @@ const SaltPage = () => {
                 {[
                   { val: "2", sub: "бренда в наличии" },
                   { val: "25 кг", sub: "фасовка мешков" },
-                  { val: "∞", sub: "запас на складе" },
+                  { val: "2", sub: "города поставок" },
                 ].map(s => (
                   <div key={s.sub} className="text-center p-4 bg-card border border-border rounded-lg">
                     <p className="text-2xl font-black text-primary">{s.val}</p>
@@ -387,7 +591,7 @@ const SaltPage = () => {
             </div>
             <div className="space-y-4">
               <img src={warehouseImg} alt="Склад таблетированной соли" loading="lazy" className="rounded-lg w-full aspect-[4/3] object-cover shadow-lg" />
-              <p className="text-sm text-muted-foreground text-center">Наш склад в Барнауле — продукция всегда в наличии</p>
+              <p className="text-sm text-muted-foreground text-center">Наш склад — продукция всегда в наличии</p>
             </div>
           </div>
         </div>
@@ -430,9 +634,7 @@ const SaltPage = () => {
       {/* ===== DELIVERY ===== */}
       <section className="py-10 md:py-16 px-4 md:px-8">
         <div className="container mx-auto rounded-3xl overflow-hidden relative">
-          {/* Left beige bg that covers ~55% */}
           <div className="absolute inset-y-0 left-0 w-[55%] bg-[hsl(var(--muted))] rounded-3xl" />
-          {/* Right warehouse bg */}
           <div className="absolute inset-y-0 right-0 w-[50%] overflow-hidden rounded-r-3xl">
             <img src={warehouseBgImg} alt="" loading="lazy" className="w-full h-full object-cover" />
           </div>
@@ -442,12 +644,12 @@ const SaltPage = () => {
                 Условия доставки<br />и самовывоза
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                Мы осуществляем доставку по всей территории России с помощью автомобильных и железнодорожных перевозок.
-                Также возможен самовывоз со складов в Барнауле — это удобно и экономит ваше время. Условия доставки обсуждаются индивидуально.
+                Доставка по Барнаулу, Кемерово и всей территории России автомобильным и железнодорожным транспортом.
+                Самовывоз со складов — удобно и экономит ваше время. Условия обсуждаются индивидуально.
               </p>
-              <a href="#form" className="inline-flex items-center bg-foreground text-background px-8 py-4 rounded-full font-bold hover:bg-foreground/85 transition-colors">
+              <button onClick={openPriceModal} className="inline-flex items-center bg-foreground text-background px-8 py-4 rounded-full font-bold hover:bg-foreground/85 transition-colors">
                 Подробнее
-              </a>
+              </button>
             </div>
             <div className="relative flex items-center justify-center py-6 md:py-0">
               <img src={deliveryTruckImg} alt="Доставка таблетированной соли" loading="lazy" width={960} height={640} className="relative z-10 w-full max-w-[480px] object-contain drop-shadow-2xl" />
@@ -463,61 +665,45 @@ const SaltPage = () => {
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Бесплатная консультация</p>
               <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-4">Оставить заявку</h2>
-              <p className="text-lg text-foreground/70">Оставьте заявку — рассчитаем стоимость под ваш объём</p>
+              <p className="text-lg text-foreground/70">Оставьте заявку для Барнаула или Кемерово — рассчитаем стоимость под ваш объём</p>
             </div>
-            <form onSubmit={handleSubmit} className="bg-card rounded-lg p-8 md:p-10 shadow-2xl space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className="text-sm font-medium text-foreground block mb-2">Имя *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Ваше имя"
-                    value={form.name}
-                    onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground block mb-2">Телефон *</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+7 (___) ___-__-__"
-                    value={form.phone}
-                    onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
+            <div className="bg-card rounded-lg p-8 md:p-10 shadow-2xl">
+              <p className="text-center text-muted-foreground mb-6">Выберите удобный способ связи</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-[#25D366] hover:bg-[#25D366]/5 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center">
+                    <WhatsAppIcon className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-semibold text-foreground">WhatsApp</span>
+                </a>
+                <a href={TG_LINK} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-[#229ED9] hover:bg-[#229ED9]/5 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-[#229ED9] text-white flex items-center justify-center">
+                    <TelegramIcon className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-semibold text-foreground">Telegram</span>
+                </a>
+                <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-[#168DE2] hover:bg-[#168DE2]/5 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-[#168DE2] text-white flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-semibold text-foreground">MAX</span>
+                </a>
+                <a href={`mailto:${EMAIL}?subject=${emailSubject}&body=${emailBody}`} className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-muted text-foreground flex items-center justify-center">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-semibold text-foreground">Email</span>
+                </a>
               </div>
-              <div>
-                <label className="text-sm font-medium text-foreground block mb-2">Объём</label>
-                <input
-                  type="text"
-                  placeholder="Например: 10 мешков, 1 тонна"
-                  value={form.volume}
-                  onChange={e => setForm(p => ({ ...p, volume: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                />
+              <div className="relative flex items-center mb-6">
+                <div className="flex-1 border-t border-border" />
+                <span className="px-4 text-sm text-muted-foreground">или заполните форму</span>
+                <div className="flex-1 border-t border-border" />
               </div>
-              <div>
-                <label className="text-sm font-medium text-foreground block mb-2">Комментарий</label>
-                <textarea
-                  placeholder="Расскажите о вашей задаче"
-                  value={form.comment}
-                  onChange={e => setForm(p => ({ ...p, comment: e.target.value }))}
-                  rows={3}
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
-              >
-                <Send className="w-5 h-5" /> Отправить заявку
+              <button onClick={openPriceModal} className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
+                <Send className="w-5 h-5" /> Заполнить форму заявки
               </button>
-              <p className="text-xs text-muted-foreground text-center">Заявка отправляется в WhatsApp — мы ответим быстро</p>
-            </form>
+            </div>
           </div>
         </div>
       </section>
@@ -535,6 +721,7 @@ const SaltPage = () => {
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Связаться</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Контакты</h2>
+            <p className="text-muted-foreground mt-3">Работаем в Барнауле и Кемерово</p>
           </div>
           <div className="grid md:grid-cols-2 gap-10">
             <div className="space-y-6">
@@ -544,16 +731,19 @@ const SaltPage = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Телефон для заказов</p>
-                  <a href="tel:+79235690767" className="text-xl font-bold text-foreground hover:text-primary transition-colors">+7 (923) 569-07-67</a>
+                  <a href={`tel:+${PHONE}`} className="text-xl font-bold text-foreground hover:text-primary transition-colors">{PHONE_DISPLAY}</a>
+                  <div className="mt-2">
+                    <MessengerRow size="sm" />
+                  </div>
                 </div>
               </div>
               <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-6 h-6 text-primary" />
+                  <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">WhatsApp</p>
-                  <a href="https://wa.me/79235690767" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-foreground hover:text-primary transition-colors">Написать в WhatsApp</a>
+                  <p className="text-sm text-muted-foreground mb-1">Email</p>
+                  <a href={`mailto:${EMAIL}`} className="text-lg font-semibold text-foreground hover:text-primary transition-colors">{EMAIL}</a>
                 </div>
               </div>
               <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
@@ -563,6 +753,7 @@ const SaltPage = () => {
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Адрес офиса и склада</p>
                   <p className="text-foreground font-semibold">г. Барнаул, ул. Ярных, 34, помещ. н3</p>
+                  <p className="text-foreground font-semibold mt-1">Доставка в Кемерово</p>
                 </div>
               </div>
             </div>
@@ -589,12 +780,12 @@ const SaltPage = () => {
               Основное назначение — регенерация ионообменных смол в системах умягчения и фильтрации воды.
             </p>
             <p>
-              У нас вы можете купить таблетированную соль Мозырьсоль и Руссоль в Барнауле с возможностью самовывоза или доставки.
+              У нас вы можете купить таблетированную соль Мозырьсоль и Руссоль в Барнауле и Кемерово с возможностью самовывоза или доставки.
               Мы предлагаем продукцию проверенных производителей, которая соответствует всем стандартам качества.
             </p>
             <p>
               Работаем с оптовыми и розничными клиентами, предлагаем выгодные условия сотрудничества и стабильное наличие продукции на складе.
-              Если вам нужна таблетированная соль для фильтров, умягчителей воды или промышленного использования — оставьте заявку или свяжитесь с нами по телефону.
+              Поставки осуществляются в Барнаул, Кемерово и другие города. Если вам нужна таблетированная соль для фильтров, умягчителей воды или промышленного использования — оставьте заявку или свяжитесь с нами.
             </p>
           </div>
         </div>
@@ -613,6 +804,7 @@ const SaltPage = () => {
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Адрес офиса:</p>
                   <p className="font-bold">656011, г. Барнаул,<br/>ул. Ярных, 34, пом. Н3</p>
+                  <p className="text-white/60 text-sm mt-1">Доставка в Кемерово</p>
                 </div>
               </div>
 
@@ -620,7 +812,13 @@ const SaltPage = () => {
                 <Phone className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Телефон:</p>
-                  <a href="tel:+79235690767" className="font-bold hover:text-yellow-400 transition-colors">+7 (923) 569-07-67</a>
+                  <a href={`tel:+${PHONE}`} className="font-bold hover:text-yellow-400 transition-colors">{PHONE_DISPLAY}</a>
+                  <div className="mt-2 flex items-center gap-2">
+                    <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="w-8 h-8 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><WhatsAppIcon className="w-4 h-4" /></a>
+                    <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className="w-8 h-8 rounded-full bg-[#229ED9] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><TelegramIcon className="w-4 h-4" /></a>
+                    <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className="w-8 h-8 rounded-full bg-[#168DE2] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><MessageCircle className="w-4 h-4" /></a>
+                    <a href={`mailto:${EMAIL}`} title="Email" className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center hover:opacity-80 transition-opacity"><Mail className="w-4 h-4" /></a>
+                  </div>
                 </div>
               </div>
 
@@ -628,7 +826,7 @@ const SaltPage = () => {
                 <Send className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Email:</p>
-                  <a href="mailto:sevuch@krupa22.ru" className="font-bold hover:text-yellow-400 transition-colors">sevuch@krupa22.ru</a>
+                  <a href={`mailto:${EMAIL}`} className="font-bold hover:text-yellow-400 transition-colors">{EMAIL}</a>
                 </div>
               </div>
 
@@ -658,13 +856,14 @@ const SaltPage = () => {
             </div>
 
             {/* Column 3: CTA */}
-            <div className="flex flex-col items-start md:items-end justify-start">
-              <a
-                href="#form"
+            <div className="flex flex-col items-start md:items-end justify-start gap-4">
+              <button
+                onClick={() => setContactModal(true)}
                 className="bg-yellow-400 text-black font-bold text-lg px-10 py-5 rounded-full hover:bg-yellow-300 transition-colors"
               >
                 Написать нам
-              </a>
+              </button>
+              <p className="text-white/50 text-sm md:text-right">Работаем в Барнауле и Кемерово<br/>Пн–Пт с 9:00 до 17:00</p>
             </div>
           </div>
         </div>
