@@ -710,27 +710,23 @@ const SaltPage = () => {
         <div className="container mx-auto">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-10">
-              <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Бесплатная консультация</p>
-              <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-4">Оставить заявку</h2>
+              <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Консультация</p>
+              <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-4">Свяжитесь с нами</h2>
               <p className="text-lg text-foreground/70">Оставьте номер — мы перезвоним и ответим на все вопросы</p>
             </div>
-            <div className="bg-card rounded-lg p-8 md:p-10 shadow-2xl">
-              <p className="text-center text-muted-foreground mb-8">Заполните форму, и мы свяжемся с вами в ближайшее время для уточнения деталей.</p>
-              <div className="grid gap-4 sm:grid-cols-3 mb-8">
-                {[
-                  { title: "Быстро", text: "Ответим в течение рабочего дня." },
-                  { title: "Удобно", text: "Укажите только телефон — остальное необязательно." },
-                  { title: "Без спама", text: "Никаких рассылок — только ответ на вашу заявку." },
-                ].map((item) => (
-                  <div key={item.title} className="rounded-lg border border-border bg-background p-4 text-center">
-                    <p className="font-semibold text-foreground mb-2">{item.title}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                  </div>
-                ))}
+            <div className="bg-card rounded-lg p-8 md:p-10 shadow-2xl space-y-8">
+              <div className="text-center">
+                <p className="font-semibold text-foreground mb-4">Напишите нам в мессенджер</p>
+                <div className="flex justify-center">
+                  <MessengerRow />
+                </div>
               </div>
-              <button onClick={openPriceModal} className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
-                <Send className="w-5 h-5" /> Оставить заявку
-              </button>
+              <div className="border-t border-border pt-8">
+                <p className="text-center font-semibold text-foreground mb-6">Или оставьте заявку</p>
+                <button onClick={openPriceModal} className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
+                  <Send className="w-5 h-5" /> Оставить заявку
+                </button>
+              </div>
             </div>
           </div>
         </div>
