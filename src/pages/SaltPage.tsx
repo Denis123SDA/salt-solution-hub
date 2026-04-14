@@ -11,7 +11,7 @@ import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
   CheckCircle2, Phone, MessageCircle, Send, ChevronRight,
-  ShieldCheck, Clock, Award, Menu, X, Mail,
+  ShieldCheck, Clock, Award, Menu, X, Mail, PhoneCall,
 } from "lucide-react";
 
 const PHONE = "+79039574577";
@@ -59,20 +59,20 @@ const SaltTablets = ({ tablets }: { tablets: { size: number; top?: string; botto
   </>
 );
 
-/* Messenger row component */
+/* Messenger row component — order: MAX, Telegram, WhatsApp, Email */
 const MessengerRow = ({ size = "md" }: { size?: "sm" | "md" }) => {
   const iconSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";
   const btnSize = size === "sm" ? "w-8 h-8" : "w-10 h-10";
   return (
     <div className="flex items-center gap-2">
-      <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className={`${btnSize} rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
-        <WhatsAppIcon className={iconSize} />
+      <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className={`${btnSize} rounded-full bg-[#168DE2] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
+        <MessageCircle className={iconSize} />
       </a>
       <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className={`${btnSize} rounded-full bg-[#229ED9] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
         <TelegramIcon className={iconSize} />
       </a>
-      <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className={`${btnSize} rounded-full bg-[#168DE2] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
-        <MessageCircle className={iconSize} />
+      <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className={`${btnSize} rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity`}>
+        <WhatsAppIcon className={iconSize} />
       </a>
       <a href={`mailto:${EMAIL}?subject=${emailSubject}&body=${emailBody}`} title="Email" className={`${btnSize} rounded-full bg-muted text-foreground flex items-center justify-center hover:opacity-80 transition-opacity`}>
         <Mail className={iconSize} />
@@ -81,6 +81,55 @@ const MessengerRow = ({ size = "md" }: { size?: "sm" | "md" }) => {
   );
 };
 
+/* Sticky contact FAB */
+const StickyContactFab = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-3">
+      {open && (
+        <div className="bg-card border border-border rounded-xl shadow-2xl p-4 space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-200 min-w-[200px]">
+          <a href={`tel:+${PHONE}`} className="flex items-center gap-3 text-foreground hover:text-primary transition-colors font-medium text-sm">
+            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><Phone className="w-4 h-4 text-primary" /></div>
+            Позвонить
+          </a>
+          <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-foreground hover:text-[#168DE2] transition-colors font-medium text-sm">
+            <div className="w-9 h-9 rounded-full bg-[#168DE2]/10 flex items-center justify-center shrink-0"><MessageCircle className="w-4 h-4 text-[#168DE2]" /></div>
+            MAX
+          </a>
+          <a href={TG_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-foreground hover:text-[#229ED9] transition-colors font-medium text-sm">
+            <div className="w-9 h-9 rounded-full bg-[#229ED9]/10 flex items-center justify-center shrink-0"><TelegramIcon className="w-4 h-4 text-[#229ED9]" /></div>
+            Telegram
+          </a>
+          <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-foreground hover:text-[#25D366] transition-colors font-medium text-sm">
+            <div className="w-9 h-9 rounded-full bg-[#25D366]/10 flex items-center justify-center shrink-0"><WhatsAppIcon className="w-4 h-4 text-[#25D366]" /></div>
+            WhatsApp
+          </a>
+          <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 text-foreground hover:text-primary transition-colors font-medium text-sm">
+            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><Mail className="w-4 h-4 text-primary" /></div>
+            Почта
+          </a>
+        </div>
+      )}
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 transition-all flex items-center justify-center relative"
+        aria-label="Связаться"
+      >
+        {open ? (
+          <X className="w-7 h-7" />
+        ) : (
+          <div className="relative">
+            <PhoneCall className="w-7 h-7" />
+            <MessageCircle className="w-4 h-4 absolute -top-1.5 -right-2.5 text-primary-foreground" />
+          </div>
+        )}
+      </button>
+    </div>
+  );
+};
+
+const CONTACT_METHODS = ["MAX", "Telegram", "WhatsApp", "Телефон", "Почта"] as const;
+
 const createInitialLeadForm = () => ({
   phone: "",
   name: "",
@@ -88,6 +137,7 @@ const createInitialLeadForm = () => ({
   volume: "",
   comment: "",
   website: "",
+  preferredContact: "",
 });
 
 /* ===== MODALS ===== */
@@ -121,13 +171,18 @@ const SaltPage = () => {
       setIsSubmitting(true);
       setSubmitError("");
 
+      const commentParts = [form.comment.trim()];
+      if (form.preferredContact) {
+        commentParts.push(`Удобный способ связи: ${form.preferredContact}`);
+      }
+
       const { error } = await supabase.functions.invoke("send-telegram-lead", {
         body: {
           name: form.name.trim(),
           phone: form.phone.trim(),
           product: form.product.trim(),
           volume: form.volume.trim(),
-          comment: form.comment.trim(),
+          comment: commentParts.filter(Boolean).join("\n"),
           website: form.website.trim(),
         },
       });
@@ -167,6 +222,9 @@ const SaltPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* ===== STICKY CONTACT FAB ===== */}
+      <StickyContactFab />
+
       {/* ===== PRICE MODAL ===== */}
       <Overlay open={priceModal} onClose={resetAndClosePrice}>
         {formSent ? (
@@ -203,6 +261,13 @@ const SaltPage = () => {
                 <input type="text" placeholder="Напр.: 5 тонн, 20 мешков" value={form.volume} onChange={e => setForm(p => ({ ...p, volume: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
               </div>
               <div>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Как удобно связаться</label>
+                <select value={form.preferredContact} onChange={e => setForm(p => ({ ...p, preferredContact: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="">Не выбрано</option>
+                  {CONTACT_METHODS.map(m => <option key={m} value={m}>{m}</option>)}
+                </select>
+              </div>
+              <div>
                 <label className="text-sm font-medium text-foreground block mb-1.5">Комментарий</label>
                 <textarea placeholder="Расскажите о вашей задаче" value={form.comment} onChange={e => setForm(p => ({ ...p, comment: e.target.value }))} rows={3} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
               </div>
@@ -227,14 +292,14 @@ const SaltPage = () => {
         <div className="container mx-auto flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 text-background/60">
             <MapPin className="w-3.5 h-3.5" />
-            <span>Барнаул и Кемерово</span>
+            <span>2 склада — Барнаул и Кемерово</span>
           </div>
           <div className="flex items-center gap-4">
             <a href={`tel:+${PHONE}`} className="text-background/60 hover:text-primary transition-colors font-medium">{PHONE_DISPLAY}</a>
             <div className="flex items-center gap-1.5">
-              <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="text-background/60 hover:text-[#25D366] transition-colors"><WhatsAppIcon className="w-4 h-4" /></a>
-              <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className="text-background/60 hover:text-[#229ED9] transition-colors"><TelegramIcon className="w-4 h-4" /></a>
               <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className="text-background/60 hover:text-[#168DE2] transition-colors"><MessageCircle className="w-4 h-4" /></a>
+              <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className="text-background/60 hover:text-[#229ED9] transition-colors"><TelegramIcon className="w-4 h-4" /></a>
+              <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="text-background/60 hover:text-[#25D366] transition-colors"><WhatsAppIcon className="w-4 h-4" /></a>
               <a href={`mailto:${EMAIL}`} title="Email" className="text-background/60 hover:text-primary transition-colors"><Mail className="w-4 h-4" /></a>
             </div>
           </div>
@@ -294,13 +359,13 @@ const SaltPage = () => {
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="space-y-7">
               <div>
-                <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-4">Поставщик в Барнауле и Кемерово</p>
+                <p className="text-foreground text-sm font-bold uppercase tracking-wider mb-4 bg-primary/20 inline-block px-3 py-1 rounded-md">2 склада — Барнаул и Кемерово</p>
                 <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black leading-[1.12] text-foreground">
                   Таблетированная соль Мозырьсоль и&nbsp;Руссоль
                 </h1>
               </div>
               <p className="text-lg text-foreground/70 leading-relaxed max-w-lg">
-                Для водоочистки, котельных, производств и частного использования. Работаем в Барнауле и Кемерово.
+                Для водоочистки, котельных, производств и частного использования.
               </p>
               <ul className="space-y-3">
                 {[
@@ -364,7 +429,7 @@ const SaltPage = () => {
               { value: "25 кг", label: "фасовка мешков", icon: Package },
               { value: "В наличии", label: "всегда на складе", icon: CheckCircle2 },
               { value: "Опт / розница", label: "любые объёмы", icon: BadgePercent },
-              { value: "2 города", label: "Барнаул и Кемерово", icon: MapPin },
+              { value: "2 склада", label: "Барнаул и Кемерово", icon: MapPin },
             ].map(({ value, label, icon: Icon }) => (
               <div key={label} className="group relative bg-card rounded-xl border border-border p-6 text-center transition-all duration-300 hover:shadow-lg hover:border-primary/40 hover:-translate-y-1">
                 <div className="mx-auto mb-3 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary/20">
@@ -559,11 +624,10 @@ const SaltPage = () => {
                   с возможностью доставки или самовывоза.
                 </p>
               </div>
-              <div className="mt-8 grid grid-cols-3 gap-4">
+              <div className="mt-8 grid grid-cols-2 gap-4">
                 {[
-                  { val: "2", sub: "бренда в наличии" },
                   { val: "25 кг", sub: "фасовка мешков" },
-                  { val: "2", sub: "города поставок" },
+                  { val: "2", sub: "склада — Барнаул и Кемерово" },
                 ].map(s => (
                   <div key={s.sub} className="text-center p-4 bg-card border border-border rounded-lg">
                     <p className="text-2xl font-black text-primary">{s.val}</p>
@@ -685,7 +749,7 @@ const SaltPage = () => {
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Связаться</p>
             <h2 className="text-3xl md:text-[36px] font-black text-foreground">Контакты</h2>
-            <p className="text-muted-foreground mt-3">Работаем в Барнауле и Кемерово</p>
+            <p className="text-muted-foreground mt-3">2 склада — Барнаул и Кемерово</p>
           </div>
           <div className="grid md:grid-cols-2 gap-10">
             <div className="space-y-6">
@@ -778,9 +842,9 @@ const SaltPage = () => {
                   <p className="text-yellow-400 text-sm mb-1">Телефон:</p>
                   <a href={`tel:+${PHONE}`} className="font-bold hover:text-yellow-400 transition-colors">{PHONE_DISPLAY}</a>
                   <div className="mt-2 flex items-center gap-2">
-                    <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="w-8 h-8 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><WhatsAppIcon className="w-4 h-4" /></a>
-                    <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className="w-8 h-8 rounded-full bg-[#229ED9] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><TelegramIcon className="w-4 h-4" /></a>
                     <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" title="MAX" className="w-8 h-8 rounded-full bg-[#168DE2] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><MessageCircle className="w-4 h-4" /></a>
+                    <a href={TG_LINK} target="_blank" rel="noopener noreferrer" title="Telegram" className="w-8 h-8 rounded-full bg-[#229ED9] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><TelegramIcon className="w-4 h-4" /></a>
+                    <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="w-8 h-8 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-opacity"><WhatsAppIcon className="w-4 h-4" /></a>
                     <a href={`mailto:${EMAIL}`} title="Email" className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center hover:opacity-80 transition-opacity"><Mail className="w-4 h-4" /></a>
                   </div>
                 </div>
@@ -827,7 +891,7 @@ const SaltPage = () => {
               >
                 Оставить заявку
               </button>
-              <p className="text-white/50 text-sm md:text-right">Работаем в Барнауле и Кемерово<br/>Пн–Пт с 9:00 до 17:00</p>
+              <p className="text-white/50 text-sm md:text-right">2 склада — Барнаул и Кемерово<br/>Пн–Пт с 9:00 до 17:00</p>
             </div>
           </div>
         </div>
