@@ -783,7 +783,7 @@ const SaltPage = () => {
             </div>
             <div className="rounded-lg overflow-hidden border border-border h-80 md:h-auto">
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=83.764884%2C53.346785&z=16&pt=83.764884%2C53.346785%2Cpm2rdm"
+                src="https://yandex.ru/map-widget/v1/?ll=83.756553%2C53.371464&z=16&pt=83.756553%2C53.371464%2Cpm2rdm"
                 width="100%"
                 height="100%"
                 frameBorder="0"
