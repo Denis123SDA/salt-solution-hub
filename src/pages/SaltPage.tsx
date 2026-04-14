@@ -114,8 +114,7 @@ const SaltPage = () => {
   const handlePriceSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Send to edge function (saves to DB + sends email)
-      await supabase.functions.invoke("send-lead-email", {
+      const { error } = await supabase.functions.invoke("send-telegram-lead", {
         body: {
           name: form.name,
           phone: form.phone,
@@ -127,13 +126,10 @@ const SaltPage = () => {
           replyContact: form.replyContact,
         },
       });
+      if (error) throw error;
     } catch (err) {
       console.error("Error sending lead:", err);
     }
-    // Also send to WhatsApp as backup
-    const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКуда ответить: ${form.replyChannel} — ${form.replyContact}\nКомментарий: ${form.comment || "—"}`;
-    const encoded = encodeURIComponent(msg);
-    window.open(`${WA_LINK}?text=${encoded}`, "_blank");
     setFormSent(true);
   };
 
