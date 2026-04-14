@@ -113,7 +113,7 @@ const StickyContactFab = () => {
       )}
       <button
         onClick={() => setOpen(!open)}
-        className="w-16 h-16 rounded-full shadow-xl hover:scale-105 transition-all flex items-center justify-center relative overflow-hidden"
+        className="w-20 h-20 rounded-full shadow-xl hover:scale-105 transition-all flex items-center justify-center relative overflow-hidden"
         aria-label="Связаться"
       >
         {open ? (
