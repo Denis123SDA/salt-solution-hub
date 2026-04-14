@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import saltHero from "@/assets/salt-hero-generated.png";
 import warehouseImg from "@/assets/warehouse.png";
 import saltMozyr from "@/assets/salt-mozyr.jpg";
