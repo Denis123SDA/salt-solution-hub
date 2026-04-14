@@ -343,12 +343,14 @@ const SaltPage = () => {
                 </a>
               </div>
               <div className="flex items-center gap-4">
+                <MessengerRow />
+              </div>
+              <div className="flex items-center gap-4">
                 <p className="text-sm text-foreground/50 flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-primary" />
                   Работаем с физическими и юридическими лицами
                 </p>
               </div>
-              <MessengerRow />
             </div>
             <div className="relative">
               <img
