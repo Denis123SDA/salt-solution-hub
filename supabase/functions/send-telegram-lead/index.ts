@@ -37,7 +37,7 @@ serve(async (req) => {
       });
     }
 
-    if (!name || name.length > 100) {
+    if (name.length > 100) {
       return jsonError("Некорректное имя", 400);
     }
 
@@ -52,7 +52,7 @@ serve(async (req) => {
     const text = [
       "📋 <b>Новая заявка с сайта</b>",
       "",
-      `👤 <b>Имя:</b> ${escapeHtml(name)}`,
+      `👤 <b>Имя:</b> ${escapeHtml(name || "не указано")}`,
       `📞 <b>Телефон:</b> ${escapeHtml(phone)}`,
       `📦 <b>Товар:</b> ${escapeHtml(product || "не указан")}`,
       `📊 <b>Объём:</b> ${escapeHtml(volume || "не указан")}`,

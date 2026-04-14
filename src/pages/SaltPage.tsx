@@ -81,6 +81,15 @@ const MessengerRow = ({ size = "md" }: { size?: "sm" | "md" }) => {
   );
 };
 
+const createInitialLeadForm = () => ({
+  phone: "",
+  name: "",
+  product: "",
+  volume: "",
+  comment: "",
+  website: "",
+});
+
 /* ===== MODALS ===== */
 
 const Overlay = ({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) => {
@@ -97,49 +106,56 @@ const Overlay = ({ open, onClose, children }: { open: boolean; onClose: () => vo
 };
 
 const SaltPage = () => {
-  const [form, setForm] = useState({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "", replyChannel: "whatsapp" as "whatsapp" | "telegram" | "max" | "email", replyContact: "" });
+  const [form, setForm] = useState(createInitialLeadForm);
   const [menuOpen, setMenuOpen] = useState(false);
   const [priceModal, setPriceModal] = useState(false);
-  const [contactModal, setContactModal] = useState(false);
   const [formSent, setFormSent] = useState(false);
-
-  const replyPlaceholder = form.replyChannel === "email"
-    ? "Ваш email"
-    : form.replyChannel === "telegram"
-    ? "Ваш @username или номер телефона"
-    : form.replyChannel === "max"
-    ? "Ваш username или номер телефона"
-    : "Номер телефона для WhatsApp";
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const handlePriceSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     try {
+      setIsSubmitting(true);
+      setSubmitError("");
+
       const { error } = await supabase.functions.invoke("send-telegram-lead", {
         body: {
-          name: form.name,
-          phone: form.phone,
-          product: form.product || "",
-          volume: form.volume || "",
-          city: form.city,
-          comment: form.comment || "",
-          replyChannel: form.replyChannel,
-          replyContact: form.replyContact,
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          product: form.product.trim(),
+          volume: form.volume.trim(),
+          comment: form.comment.trim(),
+          website: form.website.trim(),
         },
       });
+
       if (error) throw error;
+
+      setForm(createInitialLeadForm());
+      setFormSent(true);
     } catch (err) {
       console.error("Error sending lead:", err);
+      setSubmitError("Не удалось отправить заявку. Попробуйте ещё раз.");
+    } finally {
+      setIsSubmitting(false);
     }
-    setFormSent(true);
   };
 
   const resetAndClosePrice = () => {
     setPriceModal(false);
     setFormSent(false);
-    setForm({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "", replyChannel: "whatsapp", replyContact: "" });
+    setSubmitError("");
+    setForm(createInitialLeadForm());
   };
 
-  const openPriceModal = () => { setFormSent(false); setPriceModal(true); };
+  const openPriceModal = () => {
+    setFormSent(false);
+    setSubmitError("");
+    setPriceModal(true);
+  };
 
   const navLinks = [
     { href: "#products", label: "Продукция" },
@@ -156,27 +172,25 @@ const SaltPage = () => {
         {formSent ? (
           <div className="text-center py-8 space-y-4">
             <CheckCircle2 className="w-14 h-14 text-primary mx-auto" />
-            <h3 className="text-xl font-bold text-foreground">Спасибо, заявка отправлена!</h3>
-            <p className="text-muted-foreground">Мы свяжемся с вами и рассчитаем стоимость.</p>
+            <h3 className="text-xl font-bold text-foreground">Спасибо, заявка отправлена.</h3>
+            <p className="text-muted-foreground">Мы свяжемся с вами в ближайшее время.</p>
             <button onClick={resetAndClosePrice} className="mt-4 bg-primary text-primary-foreground px-8 py-3 rounded-md font-bold hover:bg-primary/90 transition-colors">Закрыть</button>
           </div>
         ) : (
           <>
             <h3 className="text-xl font-bold text-foreground mb-1">Получить цену</h3>
-            <p className="text-sm text-muted-foreground mb-6">Цена зависит от объёма — заполните форму, и мы рассчитаем стоимость</p>
+            <p className="text-sm text-muted-foreground mb-6">Оставьте номер телефона — заявка автоматически уйдёт в Telegram, остальные поля можно заполнить по желанию</p>
             <form onSubmit={handlePriceSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-foreground block mb-1.5">Имя *</label>
-                  <input type="text" required placeholder="Ваше имя" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground block mb-1.5">Телефон *</label>
-                  <input type="tel" required placeholder="+7 (___) ___-__-__" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
-                </div>
+              <div>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Телефон *</label>
+                <input type="tel" required autoComplete="tel" placeholder="+7 (___) ___-__-__" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
               </div>
               <div>
-                <label className="text-sm font-medium text-foreground block mb-1.5">Какой товар интересует</label>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Имя</label>
+                <input type="text" autoComplete="name" placeholder="Ваше имя" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Товар</label>
                 <select value={form.product} onChange={e => setForm(p => ({ ...p, product: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                   <option value="">Выберите товар</option>
                   <option value="Мозырьсоль">Мозырьсоль (Беларусь)</option>
@@ -184,117 +198,28 @@ const SaltPage = () => {
                   <option value="Оба варианта">Оба варианта</option>
                 </select>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-foreground block mb-1.5">Нужный объём</label>
-                  <input type="text" placeholder="Напр.: 5 тонн, 20 мешков" value={form.volume} onChange={e => setForm(p => ({ ...p, volume: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground block mb-1.5">Город</label>
-                  <select value={form.city} onChange={e => setForm(p => ({ ...p, city: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-                    <option value="Барнаул">Барнаул</option>
-                    <option value="Кемерово">Кемерово</option>
-                    <option value="Другой">Другой</option>
-                  </select>
-                </div>
-              </div>
               <div>
-                <label className="text-sm font-medium text-foreground block mb-1.5">Куда вам ответить? *</label>
-                <div className="flex gap-2 mb-2">
-                  {([
-                    { value: "whatsapp" as const, label: "WhatsApp", color: "bg-[#25D366]" },
-                    { value: "telegram" as const, label: "Telegram", color: "bg-[#229ED9]" },
-                    { value: "max" as const, label: "MAX", color: "bg-[#168DE2]" },
-                    { value: "email" as const, label: "Email", color: "bg-muted" },
-                  ]).map(ch => (
-                    <button
-                      key={ch.value}
-                      type="button"
-                      onClick={() => setForm(p => ({ ...p, replyChannel: ch.value, replyContact: "" }))}
-                      className={`flex-1 py-2 rounded-md text-xs font-bold transition-all border ${
-                        form.replyChannel === ch.value
-                          ? `${ch.color} text-white border-transparent shadow-md scale-105`
-                          : "bg-background text-muted-foreground border-input hover:border-foreground/30"
-                      }`}
-                    >
-                      {ch.label}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  type={form.replyChannel === "email" ? "email" : "text"}
-                  required
-                  placeholder={replyPlaceholder}
-                  value={form.replyContact}
-                  onChange={e => setForm(p => ({ ...p, replyContact: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                />
+                <label className="text-sm font-medium text-foreground block mb-1.5">Нужный объём</label>
+                <input type="text" placeholder="Напр.: 5 тонн, 20 мешков" value={form.volume} onChange={e => setForm(p => ({ ...p, volume: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground block mb-1.5">Комментарий</label>
-                <textarea placeholder="Расскажите о вашей задаче" value={form.comment} onChange={e => setForm(p => ({ ...p, comment: e.target.value }))} rows={2} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
+                <textarea placeholder="Расскажите о вашей задаче" value={form.comment} onChange={e => setForm(p => ({ ...p, comment: e.target.value }))} rows={3} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
               </div>
-              <button type="submit" className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-                <Send className="w-5 h-5" /> Отправить заявку
+              <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="lead-website">Website</label>
+                <input id="lead-website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={e => setForm(p => ({ ...p, website: e.target.value }))} />
+              </div>
+              {submitError ? (
+                <p className="text-sm text-destructive text-center">{submitError}</p>
+              ) : null}
+              <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:pointer-events-none disabled:opacity-70">
+                <Send className="w-5 h-5" /> {isSubmitting ? "Отправляем..." : "Отправить заявку"}
               </button>
-              <p className="text-xs text-muted-foreground text-center">Заявка отправляется нам в WhatsApp — мы ответим вам в выбранный мессенджер</p>
+              <p className="text-xs text-muted-foreground text-center">Все заявки с сайта отправляются напрямую в Telegram без перехода в мессенджеры.</p>
             </form>
           </>
         )}
-      </Overlay>
-
-      {/* ===== CONTACT MODAL (Оставить заявку) ===== */}
-      <Overlay open={contactModal} onClose={() => setContactModal(false)}>
-        <h3 className="text-xl font-bold text-foreground mb-2">Выберите способ связи</h3>
-        <p className="text-sm text-muted-foreground mb-6">Напишите нам удобным способом — текст сообщения подставится автоматически</p>
-        <div className="space-y-3">
-          <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-[#25D366] hover:bg-[#25D366]/5 transition-all group">
-            <div className="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0">
-              <WhatsAppIcon className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="font-bold text-foreground group-hover:text-[#25D366]">Написать в WhatsApp</p>
-              <p className="text-sm text-muted-foreground">Ответим в течение 15 минут</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
-          </a>
-          <a href={`${TG_LINK}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-[#229ED9] hover:bg-[#229ED9]/5 transition-all group">
-            <div className="w-12 h-12 rounded-full bg-[#229ED9] text-white flex items-center justify-center shrink-0">
-              <TelegramIcon className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="font-bold text-foreground group-hover:text-[#229ED9]">Написать в Telegram</p>
-              <p className="text-sm text-muted-foreground">Быстрый ответ в мессенджере</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
-          </a>
-          <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-[#168DE2] hover:bg-[#168DE2]/5 transition-all group">
-            <div className="w-12 h-12 rounded-full bg-[#168DE2] text-white flex items-center justify-center shrink-0">
-              <MessageCircle className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="font-bold text-foreground group-hover:text-[#168DE2]">Написать в MAX</p>
-              <p className="text-sm text-muted-foreground">Свяжемся с вами в MAX</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
-          </a>
-          <a href={`mailto:${EMAIL}?subject=${emailSubject}&body=${emailBody}`} className="flex items-center gap-4 p-4 rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-all group">
-            <div className="w-12 h-12 rounded-full bg-muted text-foreground flex items-center justify-center shrink-0">
-              <Mail className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="font-bold text-foreground group-hover:text-primary">Отправить на почту</p>
-              <p className="text-sm text-muted-foreground">{EMAIL}</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground ml-auto" />
-          </a>
-        </div>
-        <div className="mt-6 pt-4 border-t border-border">
-          <p className="text-sm text-muted-foreground text-center mb-3">Или заполните форму с расчётом цены</p>
-          <button onClick={() => { setContactModal(false); openPriceModal(); }} className="w-full bg-primary text-primary-foreground py-3 rounded-md font-bold hover:bg-primary/90 transition-colors">
-            Заполнить форму
-          </button>
-        </div>
       </Overlay>
 
       {/* ===== TOP BAR ===== */}
@@ -327,7 +252,7 @@ const SaltPage = () => {
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors py-1 border-b-2 border-transparent hover:border-primary">{l.label}</a>
             ))}
           </nav>
-          <button onClick={() => setContactModal(true)} className="hidden md:inline-flex bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-bold hover:bg-foreground/85 transition-colors">
+          <button onClick={openPriceModal} className="hidden md:inline-flex bg-foreground text-background px-6 py-2.5 rounded-full text-sm font-bold hover:bg-foreground/85 transition-colors">
             Оставить заявку
           </button>
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-foreground">
@@ -340,7 +265,7 @@ const SaltPage = () => {
               {navLinks.map(l => (
                 <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-sm font-semibold text-foreground py-2">{l.label}</a>
               ))}
-              <button onClick={() => { setMenuOpen(false); setContactModal(true); }} className="bg-foreground text-background px-5 py-3 rounded-full text-sm font-bold text-center mt-2">
+              <button onClick={() => { setMenuOpen(false); openPriceModal(); }} className="bg-foreground text-background px-5 py-3 rounded-full text-sm font-bold text-center mt-2">
                 Оставить заявку
               </button>
               <div className="flex justify-center mt-2">
@@ -723,43 +648,24 @@ const SaltPage = () => {
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Бесплатная консультация</p>
               <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-4">Оставить заявку</h2>
-              <p className="text-lg text-foreground/70">Оставьте заявку для Барнаула или Кемерово — рассчитаем стоимость под ваш объём</p>
+              <p className="text-lg text-foreground/70">Оставьте номер телефона — все заявки автоматически приходят нам в Telegram</p>
             </div>
             <div className="bg-card rounded-lg p-8 md:p-10 shadow-2xl">
-              <p className="text-center text-muted-foreground mb-6">Выберите удобный способ связи</p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                <a href={`${WA_LINK}?text=${prefillMsg}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-[#25D366] hover:bg-[#25D366]/5 transition-all">
-                  <div className="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center">
-                    <WhatsAppIcon className="w-5 h-5" />
+              <p className="text-center text-muted-foreground mb-8">Без перехода в WhatsApp или другие мессенджеры: клиент заполняет форму, а заявка сразу уходит в Telegram-бота.</p>
+              <div className="grid gap-4 sm:grid-cols-3 mb-8">
+                {[
+                  { title: "Телефон обязателен", text: "Остальные поля можно оставить пустыми." },
+                  { title: "Моментальная отправка", text: "Уведомление приходит в Telegram сразу после отправки." },
+                  { title: "Без лишних шагов", text: "Пользователь остаётся на сайте и видит сообщение об успехе." },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-lg border border-border bg-background p-4 text-center">
+                    <p className="font-semibold text-foreground mb-2">{item.title}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
                   </div>
-                  <span className="text-xs font-semibold text-foreground">WhatsApp</span>
-                </a>
-                <a href={TG_LINK} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-[#229ED9] hover:bg-[#229ED9]/5 transition-all">
-                  <div className="w-10 h-10 rounded-full bg-[#229ED9] text-white flex items-center justify-center">
-                    <TelegramIcon className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-semibold text-foreground">Telegram</span>
-                </a>
-                <a href={MAX_LINK} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-[#168DE2] hover:bg-[#168DE2]/5 transition-all">
-                  <div className="w-10 h-10 rounded-full bg-[#168DE2] text-white flex items-center justify-center">
-                    <MessageCircle className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-semibold text-foreground">MAX</span>
-                </a>
-                <a href={`mailto:${EMAIL}?subject=${emailSubject}&body=${emailBody}`} className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-all">
-                  <div className="w-10 h-10 rounded-full bg-muted text-foreground flex items-center justify-center">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-semibold text-foreground">Email</span>
-                </a>
-              </div>
-              <div className="relative flex items-center mb-6">
-                <div className="flex-1 border-t border-border" />
-                <span className="px-4 text-sm text-muted-foreground">или заполните форму</span>
-                <div className="flex-1 border-t border-border" />
+                ))}
               </div>
               <button onClick={openPriceModal} className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
-                <Send className="w-5 h-5" /> Заполнить форму заявки
+                <Send className="w-5 h-5" /> Открыть форму заявки
               </button>
             </div>
           </div>
@@ -916,10 +822,10 @@ const SaltPage = () => {
             {/* Column 3: CTA */}
             <div className="flex flex-col items-start md:items-end justify-start gap-4">
               <button
-                onClick={() => setContactModal(true)}
+                onClick={openPriceModal}
                 className="bg-yellow-400 text-black font-bold text-lg px-10 py-5 rounded-full hover:bg-yellow-300 transition-colors"
               >
-                Написать нам
+                Оставить заявку
               </button>
               <p className="text-white/50 text-sm md:text-right">Работаем в Барнауле и Кемерово<br/>Пн–Пт с 9:00 до 17:00</p>
             </div>
