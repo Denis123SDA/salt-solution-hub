@@ -276,10 +276,17 @@ const SaltPage = () => {
                 <label htmlFor="lead-website">Website</label>
                 <input id="lead-website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={e => setForm(p => ({ ...p, website: e.target.value }))} />
               </div>
+              <label className="flex items-start gap-2 cursor-pointer select-none">
+                <input type="checkbox" required checked={form.consent} onChange={e => setForm(p => ({ ...p, consent: e.target.checked }))} className="mt-0.5 w-4 h-4 accent-primary rounded border-input" />
+                <span className="text-xs text-muted-foreground leading-tight">
+                  Я даю согласие на обработку{" "}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80">персональных данных</a>
+                </span>
+              </label>
               {submitError ? (
                 <p className="text-sm text-destructive text-center">{submitError}</p>
               ) : null}
-              <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:pointer-events-none disabled:opacity-70">
+              <button type="submit" disabled={isSubmitting || !form.consent} className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:pointer-events-none disabled:opacity-70">
                 <Send className="w-5 h-5" /> {isSubmitting ? "Отправляем..." : "Отправить заявку"}
               </button>
               <p className="text-xs text-muted-foreground text-center">Все заявки с сайта отправляются напрямую в Telegram без перехода в мессенджеры.</p>
