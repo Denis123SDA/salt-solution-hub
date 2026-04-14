@@ -38,7 +38,7 @@ const SaltPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = `Заявка на соль:\nИмя: ${form.name}\nТелефон: ${form.phone}\nОбъём: ${form.volume || "не указан"}\nКомментарий: ${form.comment || "—"}`;
-    window.open(`https://wa.me/73852779823?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(`https://wa.me/79235690767?text=${encodeURIComponent(msg)}`, "_blank");
   };
 
   const navLinks = [
@@ -58,7 +58,7 @@ const SaltPage = () => {
             <MapPin className="w-3.5 h-3.5" />
             <span>г. Барнаул, ул. Ярных, 34, помещ. н3</span>
           </div>
-          <a href="tel:+73852779823" className="text-background/60 hover:text-primary transition-colors font-medium">+7 (3852) 77-98-23</a>
+          <a href="tel:+79235690767" className="text-background/60 hover:text-primary transition-colors font-medium">+7 (923) 569-07-67</a>
         </div>
       </div>
 
@@ -137,7 +137,7 @@ const SaltPage = () => {
                 <a href="#form" className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25">
                   Получить цену
                 </a>
-                <a href="tel:+73852779823" className="border border-foreground/30 text-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-foreground/10 transition-colors">
+                <a href="tel:+79235690767" className="border border-foreground/30 text-foreground px-8 py-4 rounded-md font-bold text-base hover:bg-foreground/10 transition-colors">
                   Позвонить
                 </a>
               </div>
@@ -544,7 +544,7 @@ const SaltPage = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Телефон для заказов</p>
-                  <a href="tel:+73852779823" className="text-xl font-bold text-foreground hover:text-primary transition-colors">+7 (3852) 77-98-23</a>
+                  <a href="tel:+79235690767" className="text-xl font-bold text-foreground hover:text-primary transition-colors">+7 (923) 569-07-67</a>
                 </div>
               </div>
               <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
@@ -553,7 +553,7 @@ const SaltPage = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">WhatsApp</p>
-                  <a href="https://wa.me/73852779823" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-foreground hover:text-primary transition-colors">Написать в WhatsApp</a>
+                  <a href="https://wa.me/79235690767" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-foreground hover:text-primary transition-colors">Написать в WhatsApp</a>
                 </div>
               </div>
               <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
@@ -620,7 +620,7 @@ const SaltPage = () => {
                 <Phone className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Телефон:</p>
-                  <a href="tel:+73852779823" className="font-bold hover:text-yellow-400 transition-colors">+7 (3852) 77-98-23</a>
+                  <a href="tel:+79235690767" className="font-bold hover:text-yellow-400 transition-colors">+7 (923) 569-07-67</a>
                 </div>
               </div>
 
