@@ -904,7 +904,7 @@ const SaltPage = () => {
         <div className="border-t border-white/10">
           <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/50">
             <span>Copyright © 2018 - 2025</span>
-            <span>Политика конфиденциальности</span>
+            <a href="/privacy" className="hover:text-primary transition-colors">Политика конфиденциальности</a>
             <div className="text-right">
               <p>Пн–Пт с 9:00 до 17:00</p>
               <p>Сб–Вс – выходной</p>
