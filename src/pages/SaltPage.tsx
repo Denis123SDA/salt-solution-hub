@@ -7,6 +7,7 @@ import saltRussol from "@/assets/salt-russol.jpg";
 import logoImg from "@/assets/logo.png";
 import deliveryTruckImg from "@/assets/delivery-truck.png";
 import warehouseBgImg from "@/assets/warehouse-bg.png";
+import contactFabIcon from "@/assets/contact-fab-icon.png";
 import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
@@ -112,16 +113,15 @@ const StickyContactFab = () => {
       )}
       <button
         onClick={() => setOpen(!open)}
-        className="w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 transition-all flex items-center justify-center relative"
+        className="w-16 h-16 rounded-full shadow-xl hover:scale-105 transition-all flex items-center justify-center relative overflow-hidden"
         aria-label="Связаться"
       >
         {open ? (
-          <X className="w-7 h-7" />
-        ) : (
-          <div className="relative">
-            <PhoneCall className="w-7 h-7" />
-            <MessageCircle className="w-4 h-4 absolute -top-1.5 -right-2.5 text-primary-foreground" />
+          <div className="w-full h-full bg-primary flex items-center justify-center rounded-full">
+            <X className="w-7 h-7 text-primary-foreground" />
           </div>
+        ) : (
+          <img src={contactFabIcon} alt="Связаться" className="w-full h-full object-cover" />
         )}
       </button>
     </div>
