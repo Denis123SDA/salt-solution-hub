@@ -775,9 +775,9 @@ const SaltPage = () => {
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Адрес офиса и склада</p>
-                  <p className="text-foreground font-semibold">г. Барнаул, ул. Ярных, 34, помещ. н3</p>
-                  <p className="text-foreground font-semibold mt-1">Доставка в Кемерово</p>
+                  <p className="text-sm text-muted-foreground mb-2">Склады</p>
+                  <p className="text-foreground font-semibold">1. Барнаул: ул. Ярных, 34, помещ. н3</p>
+                  <p className="text-foreground font-semibold mt-1">2. Кемерово: ул. Аносова, 2а</p>
                 </div>
               </div>
             </div>
