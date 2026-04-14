@@ -138,6 +138,7 @@ const createInitialLeadForm = () => ({
   comment: "",
   website: "",
   preferredContact: "",
+  consent: false,
 });
 
 /* ===== MODALS ===== */
