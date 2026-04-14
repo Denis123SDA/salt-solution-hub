@@ -96,23 +96,33 @@ const Overlay = ({ open, onClose, children }: { open: boolean; onClose: () => vo
 };
 
 const SaltPage = () => {
-  const [form, setForm] = useState({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "" });
+  const [form, setForm] = useState({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "", replyChannel: "whatsapp" as "whatsapp" | "telegram" | "max" | "email", replyContact: "" });
   const [menuOpen, setMenuOpen] = useState(false);
   const [priceModal, setPriceModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
   const [formSent, setFormSent] = useState(false);
 
+  const replyPlaceholder = form.replyChannel === "email"
+    ? "Ваш email"
+    : form.replyChannel === "telegram"
+    ? "Ваш @username или номер телефона"
+    : form.replyChannel === "max"
+    ? "Ваш username или номер телефона"
+    : "Номер телефона для WhatsApp";
+
   const handlePriceSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКомментарий: ${form.comment || "—"}`;
-    window.open(`${WA_LINK}?text=${encodeURIComponent(msg)}`, "_blank");
+    const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКуда ответить: ${form.replyChannel} — ${form.replyContact}\nКомментарий: ${form.comment || "—"}`;
+    const encoded = encodeURIComponent(msg);
+    // Send to OUR messenger so WE receive the lead
+    window.open(`${WA_LINK}?text=${encoded}`, "_blank");
     setFormSent(true);
   };
 
   const resetAndClosePrice = () => {
     setPriceModal(false);
     setFormSent(false);
-    setForm({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "" });
+    setForm({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "", replyChannel: "whatsapp", replyContact: "" });
   };
 
   const openPriceModal = () => { setFormSent(false); setPriceModal(true); };
