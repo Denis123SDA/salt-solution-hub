@@ -712,15 +712,15 @@ const SaltPage = () => {
             <div className="text-center mb-10">
               <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Бесплатная консультация</p>
               <h2 className="text-3xl md:text-[36px] font-black text-foreground mb-4">Оставить заявку</h2>
-              <p className="text-lg text-foreground/70">Оставьте номер телефона — все заявки автоматически приходят нам в Telegram</p>
+              <p className="text-lg text-foreground/70">Оставьте номер — мы перезвоним и ответим на все вопросы</p>
             </div>
             <div className="bg-card rounded-lg p-8 md:p-10 shadow-2xl">
-              <p className="text-center text-muted-foreground mb-8">Без перехода в WhatsApp или другие мессенджеры: клиент заполняет форму, а заявка сразу уходит в Telegram-бота.</p>
+              <p className="text-center text-muted-foreground mb-8">Заполните форму, и мы свяжемся с вами в ближайшее время для уточнения деталей.</p>
               <div className="grid gap-4 sm:grid-cols-3 mb-8">
                 {[
-                  { title: "Телефон обязателен", text: "Остальные поля можно оставить пустыми." },
-                  { title: "Моментальная отправка", text: "Уведомление приходит в Telegram сразу после отправки." },
-                  { title: "Без лишних шагов", text: "Пользователь остаётся на сайте и видит сообщение об успехе." },
+                  { title: "Быстро", text: "Ответим в течение рабочего дня." },
+                  { title: "Удобно", text: "Укажите только телефон — остальное необязательно." },
+                  { title: "Без спама", text: "Никаких рассылок — только ответ на вашу заявку." },
                 ].map((item) => (
                   <div key={item.title} className="rounded-lg border border-border bg-background p-4 text-center">
                     <p className="font-semibold text-foreground mb-2">{item.title}</p>
@@ -729,7 +729,7 @@ const SaltPage = () => {
                 ))}
               </div>
               <button onClick={openPriceModal} className="w-full bg-primary text-primary-foreground py-4 rounded-md font-bold text-base hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
-                <Send className="w-5 h-5" /> Открыть форму заявки
+                <Send className="w-5 h-5" /> Оставить заявку
               </button>
             </div>
           </div>
