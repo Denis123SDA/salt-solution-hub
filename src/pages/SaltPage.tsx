@@ -223,7 +223,7 @@ const SaltPage = () => {
               <button type="submit" className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
                 <Send className="w-5 h-5" /> Отправить заявку
               </button>
-              <p className="text-xs text-muted-foreground text-center">Заявка отправляется в WhatsApp — мы ответим быстро</p>
+              <p className="text-xs text-muted-foreground text-center">Заявка отправляется нам в WhatsApp — мы ответим вам в выбранный мессенджер</p>
             </form>
           </>
         )}
