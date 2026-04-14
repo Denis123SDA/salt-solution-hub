@@ -13,12 +13,12 @@ import {
   ShieldCheck, Clock, Award, Menu, X, Mail,
 } from "lucide-react";
 
-const PHONE = "+79235690767";
-const PHONE_DISPLAY = "+7 (923) 569-07-67";
-const EMAIL = "sevuch@krupa22.ru";
+const PHONE = "+79039574577";
+const PHONE_DISPLAY = "+7 (903) 957-45-77";
+const EMAIL = "sofiakizilova23@mail.ru";
 const WA_LINK = `https://wa.me/${PHONE}`;
-const TG_LINK = "https://t.me/+79235690767";
-const MAX_LINK = "https://max.ru/"; // placeholder — replace with actual MAX link
+const TG_LINK = "https://t.me/+79039574577";
+const MAX_LINK = "https://max.ru/u/f9LHodD0cOJjDpKmEeRURspH36abftpJvEBpPDdDar9v_yRta2fpf2hk4Lc";
 
 const prefillMsg = encodeURIComponent(
   "Здравствуйте! Интересует ваша продукция.\nНужный объем: _____\nГород: _____\nРасскажите, пожалуйста, подробнее по цене и условиям поставки."
