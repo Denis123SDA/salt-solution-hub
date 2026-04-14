@@ -96,23 +96,33 @@ const Overlay = ({ open, onClose, children }: { open: boolean; onClose: () => vo
 };
 
 const SaltPage = () => {
-  const [form, setForm] = useState({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "" });
+  const [form, setForm] = useState({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "", replyChannel: "whatsapp" as "whatsapp" | "telegram" | "max" | "email", replyContact: "" });
   const [menuOpen, setMenuOpen] = useState(false);
   const [priceModal, setPriceModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
   const [formSent, setFormSent] = useState(false);
 
+  const replyPlaceholder = form.replyChannel === "email"
+    ? "Ваш email"
+    : form.replyChannel === "telegram"
+    ? "Ваш @username или номер телефона"
+    : form.replyChannel === "max"
+    ? "Ваш username или номер телефона"
+    : "Номер телефона для WhatsApp";
+
   const handlePriceSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКомментарий: ${form.comment || "—"}`;
-    window.open(`${WA_LINK}?text=${encodeURIComponent(msg)}`, "_blank");
+    const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКуда ответить: ${form.replyChannel} — ${form.replyContact}\nКомментарий: ${form.comment || "—"}`;
+    const encoded = encodeURIComponent(msg);
+    // Send to OUR messenger so WE receive the lead
+    window.open(`${WA_LINK}?text=${encoded}`, "_blank");
     setFormSent(true);
   };
 
   const resetAndClosePrice = () => {
     setPriceModal(false);
     setFormSent(false);
-    setForm({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "" });
+    setForm({ name: "", phone: "", product: "", volume: "", city: "Барнаул", comment: "", replyChannel: "whatsapp", replyContact: "" });
   };
 
   const openPriceModal = () => { setFormSent(false); setPriceModal(true); };
@@ -175,13 +185,45 @@ const SaltPage = () => {
                 </div>
               </div>
               <div>
+                <label className="text-sm font-medium text-foreground block mb-1.5">Куда вам ответить? *</label>
+                <div className="flex gap-2 mb-2">
+                  {([
+                    { value: "whatsapp" as const, label: "WhatsApp", color: "bg-[#25D366]" },
+                    { value: "telegram" as const, label: "Telegram", color: "bg-[#229ED9]" },
+                    { value: "max" as const, label: "MAX", color: "bg-[#168DE2]" },
+                    { value: "email" as const, label: "Email", color: "bg-muted" },
+                  ]).map(ch => (
+                    <button
+                      key={ch.value}
+                      type="button"
+                      onClick={() => setForm(p => ({ ...p, replyChannel: ch.value, replyContact: "" }))}
+                      className={`flex-1 py-2 rounded-md text-xs font-bold transition-all border ${
+                        form.replyChannel === ch.value
+                          ? `${ch.color} text-white border-transparent shadow-md scale-105`
+                          : "bg-background text-muted-foreground border-input hover:border-foreground/30"
+                      }`}
+                    >
+                      {ch.label}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type={form.replyChannel === "email" ? "email" : "text"}
+                  required
+                  placeholder={replyPlaceholder}
+                  value={form.replyContact}
+                  onChange={e => setForm(p => ({ ...p, replyContact: e.target.value }))}
+                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
+              <div>
                 <label className="text-sm font-medium text-foreground block mb-1.5">Комментарий</label>
                 <textarea placeholder="Расскажите о вашей задаче" value={form.comment} onChange={e => setForm(p => ({ ...p, comment: e.target.value }))} rows={2} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
               </div>
               <button type="submit" className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
                 <Send className="w-5 h-5" /> Отправить заявку
               </button>
-              <p className="text-xs text-muted-foreground text-center">Заявка отправляется в WhatsApp — мы ответим быстро</p>
+              <p className="text-xs text-muted-foreground text-center">Заявка отправляется нам в WhatsApp — мы ответим вам в выбранный мессенджер</p>
             </form>
           </>
         )}
