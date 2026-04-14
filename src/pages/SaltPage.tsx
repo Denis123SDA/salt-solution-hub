@@ -111,11 +111,28 @@ const SaltPage = () => {
     ? "Ваш username или номер телефона"
     : "Номер телефона для WhatsApp";
 
-  const handlePriceSubmit = (e: React.FormEvent) => {
+  const handlePriceSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      // Send to edge function (saves to DB + sends email)
+      await supabase.functions.invoke("send-lead-email", {
+        body: {
+          name: form.name,
+          phone: form.phone,
+          product: form.product || "",
+          volume: form.volume || "",
+          city: form.city,
+          comment: form.comment || "",
+          replyChannel: form.replyChannel,
+          replyContact: form.replyContact,
+        },
+      });
+    } catch (err) {
+      console.error("Error sending lead:", err);
+    }
+    // Also send to WhatsApp as backup
     const msg = `Запрос цены:\nИмя: ${form.name}\nТелефон: ${form.phone}\nТовар: ${form.product || "не указан"}\nОбъём: ${form.volume || "не указан"}\nГород: ${form.city}\nКуда ответить: ${form.replyChannel} — ${form.replyContact}\nКомментарий: ${form.comment || "—"}`;
     const encoded = encodeURIComponent(msg);
-    // Send to OUR messenger so WE receive the lead
     window.open(`${WA_LINK}?text=${encoded}`, "_blank");
     setFormSent(true);
   };
