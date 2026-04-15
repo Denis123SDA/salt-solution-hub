@@ -300,7 +300,7 @@ const SaltPage = () => {
         <div className="container mx-auto flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 text-background/60">
             <MapPin className="w-3.5 h-3.5" />
-            <span>2 склада — Барнаул и Кемерово</span>
+            <span>ул. Ярных, 34, Барнаул</span>
           </div>
           <div className="flex items-center gap-4">
             <a href={`tel:+${PHONE}`} className="text-background/60 hover:text-primary transition-colors font-medium">{PHONE_DISPLAY}</a>
