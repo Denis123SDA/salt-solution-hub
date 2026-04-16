@@ -304,7 +304,7 @@ const SaltPage = () => {
               <span>Офис: ул. Ярных, 34, Барнаул</span>
             </div>
             <span className="opacity-40">|</span>
-            <span>Склады: Матросова 9В (Барнаул), Кузнецкий пр-т 250 (Кемерово)</span>
+            <span>Склады: Барнаул: Матросова 9В, Кемерово: Кузнецкий пр-т 250</span>
           </div>
           <div className="flex items-center gap-4">
             <a href={`tel:+${PHONE}`} className="text-background/60 hover:text-primary transition-colors font-medium">{PHONE_DISPLAY}</a>
@@ -790,7 +790,7 @@ const SaltPage = () => {
                   <p className="text-sm text-muted-foreground mb-2">Адрес офиса:</p>
                   <p className="text-foreground font-semibold text-lg">656011, г. Барнаул,</p>
                   <p className="text-foreground font-semibold text-lg">ул. Ярных, 34, пом. Н3</p>
-                  <p className="text-primary text-sm mt-2">Доставка в Кемерово</p>
+                  <p className="text-primary text-sm mt-2">{"\n"}</p>
                 </div>
               </div>
             </div>
