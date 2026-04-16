@@ -890,7 +890,7 @@ const SaltPage = () => {
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Оплата:</p>
                   <p className="font-bold">Наличными или по счёту</p>
-                  <p className="text-red-400 text-sm mt-1">Терминал не принимается</p>
+                  <p className="text-red-400 text-sm mt-1">Оплата по терминалу не принимается</p>
                 </div>
               </div>
             </div>
