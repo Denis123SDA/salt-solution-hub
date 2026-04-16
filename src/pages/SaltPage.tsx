@@ -12,7 +12,7 @@ import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
   CheckCircle2, Phone, MessageCircle, Send, ChevronRight,
-  ShieldCheck, Clock, Award, Menu, X, Mail, PhoneCall,
+  ShieldCheck, Clock, Award, Menu, X, Mail, PhoneCall, Banknote,
 } from "lucide-react";
 
 const PHONE = "+79039574577";
@@ -793,6 +793,16 @@ const SaltPage = () => {
                   <p className="text-primary text-sm mt-2">{"\n"}</p>
                 </div>
               </div>
+              <div className="flex items-start gap-4 p-6 border border-border rounded-lg bg-card">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Banknote className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Способы оплаты</p>
+                  <p className="text-foreground font-semibold">Наличный расчёт или по счёту</p>
+                  <p className="text-destructive text-sm mt-1">Оплата по терминалу не принимается</p>
+                </div>
+              </div>
             </div>
             <div className="rounded-lg overflow-hidden border border-border h-80 md:h-auto">
               <iframe
@@ -872,6 +882,15 @@ const SaltPage = () => {
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Email:</p>
                   <a href={`mailto:${EMAIL}`} className="font-bold hover:text-yellow-400 transition-colors">{EMAIL}</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Banknote className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-yellow-400 text-sm mb-1">Оплата:</p>
+                  <p className="font-bold">Наличными или по счёту</p>
+                  <p className="text-red-400 text-sm mt-1">Терминал не принимается</p>
                 </div>
               </div>
             </div>
