@@ -800,7 +800,7 @@ const SaltPage = () => {
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Способы оплаты</p>
                   <p className="text-foreground font-semibold">Наличный расчёт или по счёту</p>
-                  <p className="text-destructive text-sm mt-1">Оплата по терминалу не принимается</p>
+                  <p className="text-muted-foreground text-sm mt-1">Оплата по терминалу не принимается</p>
                 </div>
               </div>
             </div>
@@ -890,7 +890,7 @@ const SaltPage = () => {
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Оплата:</p>
                   <p className="font-bold">Наличными или по счёту</p>
-                  <p className="text-red-400 text-sm mt-1">Оплата по терминалу не принимается</p>
+                  <p className="text-gray-500 text-sm mt-1">Оплата по терминалу не принимается</p>
                 </div>
               </div>
             </div>
