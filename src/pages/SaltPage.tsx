@@ -867,7 +867,7 @@ const SaltPage = () => {
                 <Home className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Склады:</p>
-                  <p className="font-bold">ул. Ярных, 34<br/>ул. Аносова, 2а</p>
+                  <p className="font-bold">Барнаул: ул. Матросова, 9В<br/>Кемерово: Кузнецкий проспект, 250</p>
                 </div>
               </div>
             </div>
