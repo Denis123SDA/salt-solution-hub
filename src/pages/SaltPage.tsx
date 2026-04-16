@@ -842,6 +842,14 @@ const SaltPage = () => {
               </div>
 
               <div className="flex items-start gap-3">
+                <Home className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-yellow-400 text-sm mb-1">Склады:</p>
+                  <p className="font-bold">Барнаул: ул. Матросова, 9В<br/>Кемерово: Кузнецкий проспект, 250</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Телефон:</p>
@@ -860,14 +868,6 @@ const SaltPage = () => {
                 <div>
                   <p className="text-yellow-400 text-sm mb-1">Email:</p>
                   <a href={`mailto:${EMAIL}`} className="font-bold hover:text-yellow-400 transition-colors">{EMAIL}</a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Home className="w-5 h-5 text-yellow-400 mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-yellow-400 text-sm mb-1">Склады:</p>
-                  <p className="font-bold">Барнаул: ул. Матросова, 9В<br/>Кемерово: Кузнецкий проспект, 250</p>
                 </div>
               </div>
             </div>
