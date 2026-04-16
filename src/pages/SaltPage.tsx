@@ -298,9 +298,13 @@ const SaltPage = () => {
       {/* ===== TOP BAR ===== */}
       <div className="hidden md:block bg-foreground text-foreground/60 py-2">
         <div className="container mx-auto flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5 text-background/60">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>ул. Ярных, 34, Барнаул</span>
+          <div className="flex items-center gap-4 text-background/60">
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Офис: ул. Ярных, 34, Барнаул</span>
+            </div>
+            <span className="opacity-40">|</span>
+            <span>Склады: Матросова 9В (Барнаул), Кузнецкий пр-т 250 (Кемерово)</span>
           </div>
           <div className="flex items-center gap-4">
             <a href={`tel:+${PHONE}`} className="text-background/60 hover:text-primary transition-colors font-medium">{PHONE_DISPLAY}</a>
