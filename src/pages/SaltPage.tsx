@@ -207,9 +207,12 @@ const SaltPage = () => {
     setForm(createInitialLeadForm());
   };
 
-  const openPriceModal = () => {
+  const openPriceModal = (preselectedProduct?: string) => {
     setFormSent(false);
     setSubmitError("");
+    if (preselectedProduct) {
+      setForm(p => ({ ...p, product: preselectedProduct }));
+    }
     setPriceModal(true);
   };
 
@@ -252,9 +255,11 @@ const SaltPage = () => {
                 <label className="text-sm font-medium text-foreground block mb-1.5">Товар</label>
                 <select value={form.product} onChange={e => setForm(p => ({ ...p, product: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                   <option value="">Выберите товар</option>
-                  <option value="Мозырьсоль">Мозырьсоль (Беларусь)</option>
-                  <option value="Руссоль">Руссоль (Россия)</option>
-                  <option value="Оба варианта">Оба варианта</option>
+                  <option value="Мозырьсоль">Таблетированная соль Мозырьсоль (Беларусь)</option>
+                  <option value="Руссоль">Таблетированная соль Руссоль (Россия)</option>
+                  <option value="Оба варианта">Оба варианта таблетированной</option>
+                  <option value="Кормовая соль Аралтұз в брикетах">Кормовая соль Аралтұз в брикетах</option>
+                  <option value="Пищевая соль фасованная">Пищевая соль фасованная</option>
                 </select>
               </div>
               <div>
