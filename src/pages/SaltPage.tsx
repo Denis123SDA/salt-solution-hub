@@ -8,6 +8,7 @@ import logoImg from "@/assets/logo.png";
 import deliveryTruckImg from "@/assets/delivery-truck.png";
 import warehouseBgImg from "@/assets/warehouse-bg.png";
 import contactFabIcon from "@/assets/contact-fab-icon.png";
+import araltuzImg from "@/assets/araltuz-briquettes.png";
 import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
@@ -582,6 +583,7 @@ const SaltPage = () => {
                 desc: "Для животноводства и сельского хозяйства. Удобный формат в брикетах.",
                 meta: "В наличии на складе",
                 preselect: "Кормовая соль Аралтуз в брикетах",
+                image: araltuzImg,
               },
               {
                 badge: "Для торговли и производства",
@@ -590,9 +592,20 @@ const SaltPage = () => {
                 desc: "Фасованная пищевая соль для торговли, производства и других задач.",
                 meta: "В наличии на складе",
                 preselect: "Пищевая соль фасованная",
+                image: null as string | null,
               },
             ].map(item => (
               <div key={item.name} className="border border-border rounded-lg p-6 bg-card hover:shadow-lg hover:border-primary/40 transition-all flex flex-col">
+                {item.image && (
+                  <div className="aspect-[4/3] w-full mb-5 rounded-lg overflow-hidden bg-muted/40 flex items-center justify-center">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      loading="lazy"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                )}
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                     <item.icon className="w-6 h-6 text-primary" />
