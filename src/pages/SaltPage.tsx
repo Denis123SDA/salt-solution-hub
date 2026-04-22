@@ -9,6 +9,7 @@ import deliveryTruckImg from "@/assets/delivery-truck.png";
 import warehouseBgImg from "@/assets/warehouse-bg.png";
 import contactFabIcon from "@/assets/contact-fab-icon.png";
 import araltuzImg from "@/assets/araltuz-briquettes.png";
+import foodSaltImg from "@/assets/food-salt-packs.png";
 import {
   Droplets, Flame, Factory, Waves, Home, Building2,
   Package, Truck, Users, BadgePercent, Headphones, MapPin,
@@ -592,7 +593,7 @@ const SaltPage = () => {
                 desc: "Фасованная пищевая соль для торговли, производства и других задач.",
                 meta: "В наличии на складе",
                 preselect: "Пищевая соль фасованная",
-                image: null as string | null,
+                image: foodSaltImg as string | null,
               },
             ].map(item => (
               <div key={item.name} className="border border-border rounded-lg p-6 bg-card hover:shadow-lg hover:border-primary/40 transition-all flex flex-col">
