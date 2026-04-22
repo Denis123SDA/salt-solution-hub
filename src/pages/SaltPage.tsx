@@ -207,10 +207,10 @@ const SaltPage = () => {
     setForm(createInitialLeadForm());
   };
 
-  const openPriceModal = (preselectedProduct?: string) => {
+  const openPriceModal = (preselectedProduct?: unknown) => {
     setFormSent(false);
     setSubmitError("");
-    if (preselectedProduct) {
+    if (typeof preselectedProduct === "string" && preselectedProduct) {
       setForm(p => ({ ...p, product: preselectedProduct }));
     }
     setPriceModal(true);
