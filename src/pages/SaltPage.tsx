@@ -384,6 +384,17 @@ const SaltPage = () => {
               <p className="text-lg text-foreground/70 leading-relaxed max-w-lg">
                 Для водоочистки, котельных, производств и частного использования.
               </p>
+              <p className="text-base text-foreground/80 leading-relaxed max-w-lg">
+                А также в наличии{" "}
+                <a href="#additional" className="font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:text-primary transition-colors">
+                  кормовая соль Аралтуз
+                </a>
+                {" "}и{" "}
+                <a href="#additional" className="font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:text-primary transition-colors">
+                  пищевая соль фасованная
+                </a>
+                .
+              </p>
               <ul className="space-y-3">
                 {[
                   "Всегда в наличии на складе",
