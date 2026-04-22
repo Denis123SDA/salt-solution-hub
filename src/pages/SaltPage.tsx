@@ -597,7 +597,7 @@ const SaltPage = () => {
             ].map(item => (
               <div key={item.name} className="border border-border rounded-lg p-6 bg-card hover:shadow-lg hover:border-primary/40 transition-all flex flex-col">
                 {item.image && (
-                  <div className="aspect-[4/3] w-full mb-5 rounded-lg overflow-hidden bg-muted/40 flex items-center justify-center">
+                  <div className="aspect-[4/3] w-full mb-5 rounded-lg overflow-hidden bg-white flex items-center justify-center">
                     <img
                       src={item.image}
                       alt={item.name}
