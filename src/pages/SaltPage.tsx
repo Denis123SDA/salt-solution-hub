@@ -207,9 +207,12 @@ const SaltPage = () => {
     setForm(createInitialLeadForm());
   };
 
-  const openPriceModal = () => {
+  const openPriceModal = (preselectedProduct?: unknown) => {
     setFormSent(false);
     setSubmitError("");
+    if (typeof preselectedProduct === "string" && preselectedProduct) {
+      setForm(p => ({ ...p, product: preselectedProduct }));
+    }
     setPriceModal(true);
   };
 
@@ -252,9 +255,11 @@ const SaltPage = () => {
                 <label className="text-sm font-medium text-foreground block mb-1.5">Товар</label>
                 <select value={form.product} onChange={e => setForm(p => ({ ...p, product: e.target.value }))} className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                   <option value="">Выберите товар</option>
-                  <option value="Мозырьсоль">Мозырьсоль (Беларусь)</option>
-                  <option value="Руссоль">Руссоль (Россия)</option>
-                  <option value="Оба варианта">Оба варианта</option>
+                  <option value="Мозырьсоль">Таблетированная соль Мозырьсоль (Беларусь)</option>
+                  <option value="Руссоль">Таблетированная соль Руссоль (Россия)</option>
+                  <option value="Оба варианта">Оба варианта таблетированной</option>
+                  <option value="Кормовая соль Аралтұз в брикетах">Кормовая соль Аралтұз в брикетах</option>
+                  <option value="Пищевая соль фасованная">Пищевая соль фасованная</option>
                 </select>
               </div>
               <div>
@@ -542,7 +547,63 @@ const SaltPage = () => {
         </div>
       </section>
 
-      {/* ===== APPLICATIONS ===== */}
+      {/* ===== ADDITIONAL ASSORTMENT ===== */}
+      <section id="additional" className="pb-16 md:pb-20 relative overflow-hidden">
+        <SaltTablets tablets={[
+          { size: 44, top: '15%', right: '4%', className: 'salt-float-3', opacity: 0.35 },
+          { size: 60, bottom: '20%', left: '5%', className: 'salt-float-1', opacity: 0.32 },
+          { size: 28, top: '50%', left: '45%', className: 'salt-float-5', opacity: 0.4 },
+        ]} />
+        <div className="container mx-auto relative z-10">
+          <div className="text-center mb-10">
+            <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-3">Также в наличии</p>
+            <h2 className="text-2xl md:text-3xl font-black text-foreground">Другие виды соли в&nbsp;ассортименте</h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+              Помимо таблетированной соли поставляем также кормовую и пищевую соль. Уточняйте наличие и условия — поможем подобрать под вашу задачу.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                badge: "Для сельского хозяйства",
+                icon: Package,
+                name: "Кормовая соль Аралтұз в брикетах",
+                desc: "Для животноводства и сельского хозяйства. Удобный формат в брикетах.",
+                meta: "Поставка по запросу",
+                preselect: "Кормовая соль Аралтұз в брикетах",
+              },
+              {
+                badge: "Для торговли и производства",
+                icon: Package,
+                name: "Пищевая соль фасованная",
+                desc: "Фасованная пищевая соль для торговли, производства и других задач.",
+                meta: "Наличие и условия — по запросу",
+                preselect: "Пищевая соль фасованная",
+              },
+            ].map(item => (
+              <div key={item.name} className="border border-border rounded-lg p-6 bg-card hover:shadow-lg hover:border-primary/40 transition-all flex flex-col">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <item.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-1">{item.badge}</p>
+                    <h3 className="text-lg font-bold text-foreground leading-tight">{item.name}</h3>
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-3">{item.desc}</p>
+                <p className="text-sm text-foreground/70 font-medium mb-5">{item.meta}</p>
+                <button
+                  onClick={() => openPriceModal(item.preselect)}
+                  className="mt-auto inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-full font-semibold hover:bg-primary/90 transition-colors w-full"
+                >
+                  Оставить заявку <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       <section id="applications" className="bg-section-alt py-20 md:py-28 rounded-3xl mx-4 md:mx-8 my-4 relative overflow-hidden">
         <SaltTablets tablets={[
           { size: 54, top: '8%', left: '4%', className: 'salt-float-2', opacity: 0.3 },
